@@ -1,5 +1,6 @@
 package entities;
 
+import dao.DistributoreAutomaticoDao;
 import enumerated.LocationAcquisto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,8 +21,8 @@ public class Biglietto extends Acquisto {
         super();
     };
 
-    public Biglietto(LocationAcquisto locationAcquisto) {
-        super(locationAcquisto);
+    public Biglietto(LocationAcquisto locationAcquisto, DistributoreAutomatico distributoreAutomatico) {
+        super(locationAcquisto,distributoreAutomatico);
         this.validato = super.isValidato();
         this.dataEmissione = super.getDataEmissione();
     }
