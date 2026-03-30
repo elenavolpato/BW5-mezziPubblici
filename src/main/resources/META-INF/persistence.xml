@@ -3,7 +3,10 @@
              xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="BW5-mezziPubblici">
-               <properties>
+        <class>entities.Biglietto</class>
+        <class>entities.Abbonamento</class>
+        <class>entities.Acquisto</class>
+        <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/BW5-mezziPubblici"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="1234"/>
