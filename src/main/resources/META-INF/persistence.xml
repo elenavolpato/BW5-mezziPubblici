@@ -6,6 +6,7 @@
         <class>entities.Biglietto</class>
         <class>entities.Abbonamento</class>
         <class>entities.Acquisto</class>
+        <class>entities.DistributoreAutomatico</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/BW5-mezziPubblici"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>

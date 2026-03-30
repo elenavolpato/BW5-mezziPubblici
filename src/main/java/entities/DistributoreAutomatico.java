@@ -11,5 +11,12 @@ public class DistributoreAutomatico {
     private long id;
     private boolean attivo;
 
+    protected   DistributoreAutomatico(){};
+    public  DistributoreAutomatico(Boolean attivo){
+        this.attivo = attivo;
+    }
 
+    public long getId() {
+        return id;
+    }
 }
