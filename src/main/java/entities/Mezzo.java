@@ -15,6 +15,7 @@ public class Mezzo {
     @Column (name = "capienza", nullable = false)
     private Integer capienza;
 
+    @Enumerated(EnumType.STRING)
     @Column (name = "tipo", nullable = false)
     private TipoMezzi tipo;
 
@@ -34,14 +35,29 @@ public class Mezzo {
 
     }
 
-    public Mezzo(Long id, Integer capienza, TipoMezzi tipo, Boolean inServizio) {
-        this.id = id;
+    public Mezzo(Integer capienza, TipoMezzi tipo, Boolean inServizio, Tratta tratta, Biglietto biglietto) {
         this.capienza = capienza;
         this.tipo = tipo;
         this.inServizio = inServizio;
+        this.tratta = tratta;
+        this.biglietto = biglietto;
     }
 
+    public Tratta getTratta() {
+        return tratta;
+    }
 
+    public void setTratta(Tratta tratta) {
+        this.tratta = tratta;
+    }
+
+    public Biglietto getBiglietto() {
+        return biglietto;
+    }
+
+    public void setBiglietto(Biglietto biglietto) {
+        this.biglietto = biglietto;
+    }
 
     public Long getId() {
         return id;
@@ -82,6 +98,8 @@ public class Mezzo {
                 ", capienza=" + capienza +
                 ", tipo=" + tipo +
                 ", inServizio=" + inServizio +
+                ", tratta=" + tratta +
+                ", biglietto=" + biglietto +
                 '}';
     }
 }
