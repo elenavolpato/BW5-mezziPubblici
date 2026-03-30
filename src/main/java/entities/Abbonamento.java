@@ -3,7 +3,8 @@ package entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
+@Entity
+@Table(name="abbonamenti")
 public class Abbonamento extends Acquisto {
     @Id
     @GeneratedValue

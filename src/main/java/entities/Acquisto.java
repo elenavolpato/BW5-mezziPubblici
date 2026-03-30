@@ -6,15 +6,18 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@MappedSuperclass
 public abstract class Acquisto {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @Enumerated(EnumType.STRING)
     @Column (name="location_acquisto")
     private LocationAcquisto locationAcquisto;
 
-    private boolean validato;
+    private boolean validato = false;
 
     @Column (name="data_emissione")
     private LocalDate dataEmissione;
@@ -23,7 +26,7 @@ public abstract class Acquisto {
     public Acquisto(LocationAcquisto locationAcquisto){
         this.locationAcquisto = LocationAcquisto.AUTOMATICO;
         // TODO: prendere il codice della location
-        this.validato = false;
+        this.validato = validato;
         this.dataEmissione = LocalDate.now();
     }
 
