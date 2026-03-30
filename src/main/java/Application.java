@@ -2,6 +2,11 @@ import entities.Biglietto;
 import entities.Mezzo;
 import entities.Tratta;
 import enumerated.TipoMezzi;
+import dao.AcquistoDAO;
+import dao.DistributoreAutomaticoDao;
+import entities.Biglietto;
+import entities.DistributoreAutomatico;
+import enumerated.LocationAcquisto;
 import jakarta.persistence.*;
 
 public class Application {
@@ -18,6 +23,15 @@ public static void main(String[] args){
     System.out.println(mezzo1);
 }
 
+        Biglietto b1 = new Biglietto(LocationAcquisto.AUTOMATICO);
+        DistributoreAutomaticoDao distributoreAutomaticoDao = new DistributoreAutomaticoDao(em);
+        DistributoreAutomatico d1 = new DistributoreAutomatico(true);
+        Biglietto b1 = new Biglietto(LocationAcquisto.AUTOMATICO,d1);
+        distributoreAutomaticoDao.save(d1);
+        acquistoDAO.save(b1);
+
+        //acquistoDAO.save(b1);
+    }
 
 
 }
