@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 
+import java.util.UUID;
+
 public class TrattaDAO {
     private final EntityManager em;
 
@@ -31,6 +33,11 @@ public class TrattaDAO {
         transaction.commit();
 
         System.out.println("tratta cancellata");
+    }
+
+    public Tratta cercaTrattaPerId(String trattaID){
+        Tratta found = em.find(Tratta.class, UUID.fromString(trattaID));
+        return found;
 
     }
 
