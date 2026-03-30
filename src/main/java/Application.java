@@ -11,6 +11,8 @@ public class Application {
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
         AcquistoDAO acquistoDAO = new AcquistoDAO(em);
+
+        Biglietto b1 = new Biglietto(LocationAcquisto.AUTOMATICO);
         DistributoreAutomaticoDao distributoreAutomaticoDao = new DistributoreAutomaticoDao(em);
         DistributoreAutomatico d1 = new DistributoreAutomatico(true);
         Biglietto b1 = new Biglietto(LocationAcquisto.AUTOMATICO,d1);
