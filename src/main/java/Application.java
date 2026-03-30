@@ -1,3 +1,7 @@
+import entities.Biglietto;
+import entities.Mezzo;
+import entities.Tratta;
+import enumerated.TipoMezzi;
 import dao.AcquistoDAO;
 import dao.DistributoreAutomaticoDao;
 import entities.Biglietto;
@@ -8,9 +12,16 @@ import jakarta.persistence.*;
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("BW5-mezziPubblici");
 
-    public static void main(String[] args) {
-        EntityManager em = emf.createEntityManager();
-        AcquistoDAO acquistoDAO = new AcquistoDAO(em);
+
+
+public static void main(String[] args){
+
+    Tratta tratta1 = new Tratta ("prova1","prova2",10);
+    Biglietto biglietto = new Biglietto();
+    Mezzo mezzo1 = new Mezzo (12,TipoMezzi.AUTOBUS,true,tratta1,biglietto);
+
+    System.out.println(mezzo1);
+}
 
         Biglietto b1 = new Biglietto(LocationAcquisto.AUTOMATICO);
         DistributoreAutomaticoDao distributoreAutomaticoDao = new DistributoreAutomaticoDao(em);
