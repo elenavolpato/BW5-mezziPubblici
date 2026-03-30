@@ -40,8 +40,8 @@ public class Abbonamento extends Acquisto {
 
     public Abbonamento(){super();}
 
-    public Abbonamento(LocationAcquisto locationAcquisto, Periodo periodo, LocalDate scadenza, String nome, String cognome, LocalDate dataDiNascita, DistributoreAutomatico distributoreAutomatico){
-        super(locationAcquisto, distributoreAutomatico);
+    public Abbonamento(LocationAcquisto locationAcquisto, DistributoreAutomatico distributoreAutomatico, Periodo periodo, LocalDate scadenza, String nome, String cognome, LocalDate dataDiNascita){
+        super(locationAcquisto,distributoreAutomatico);
         this.periodo = Periodo.SETTIMANALE;
         this.scadenza = setScadenza(getDataEmissione());
         this.nome = nome;

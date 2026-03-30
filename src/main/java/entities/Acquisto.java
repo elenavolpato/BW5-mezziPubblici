@@ -28,11 +28,11 @@ public abstract class Acquisto {
 
     public Acquisto(){};
     public Acquisto(LocationAcquisto locationAcquisto,DistributoreAutomatico distributoreAutomatico){
-        this.locationAcquisto = LocationAcquisto.AUTOMATICO;
-        // TODO: prendere il codice della location
+        this.locationAcquisto = locationAcquisto;
         this.validato = validato;
         this.dataEmissione = LocalDate.now();
-        this.distributoreAutomatico = distributoreAutomatico;
+        if(locationAcquisto == LocationAcquisto.AUTOMATICO) this.distributoreAutomatico = distributoreAutomatico;
+       else this.distributoreAutomatico = null;
     }
 
     public UUID getId() {        return id;    }
