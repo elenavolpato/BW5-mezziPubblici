@@ -13,7 +13,6 @@ import java.util.UUID;
 @Table(name="biglietti")
 
 public class Biglietto extends Acquisto {
-
     private boolean validato;
     private LocalDate dataEmissione;
 
@@ -23,7 +22,6 @@ public class Biglietto extends Acquisto {
 
     public Biglietto(LocationAcquisto locationAcquisto) {
         super(locationAcquisto);
-
         this.validato = super.isValidato();
         this.dataEmissione = super.getDataEmissione();
     }

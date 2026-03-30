@@ -11,9 +11,7 @@ public class Application {
         AcquistoDAO acquistoDAO = new AcquistoDAO(em);
 
         Biglietto b1 = new Biglietto(LocationAcquisto.AUTOMATICO);
-
-        acquistoDAO.save(b1);
-        System.out.println(b1);
+        //acquistoDAO.save(b1);
     }
 
 
