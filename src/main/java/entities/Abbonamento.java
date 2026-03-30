@@ -3,15 +3,23 @@ package entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-public abstract class Abbonamento {
+public class Abbonamento extends Acquisto {
+    @Id
+    @GeneratedValue
+    @Column(name="id_abbonamento")
+    private long idAbbonamento;
 
-    public LocalDate setDataScadenza(LocalDate dataEmissione){
-        if()
-            LocalDate dataScadenza = dataEmissione.plusDays(30);
-        return dataScadenza;
-    }
+   //@OneToOne
+
+
+
+
+//    public LocalDate setDataScadenza(LocalDate dataEmissione){
+//        if()
+//            LocalDate dataScadenza = dataEmissione.plusDays(30);
+//        return dataScadenza;
+//    }
 
 
 
