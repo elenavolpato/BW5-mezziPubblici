@@ -7,7 +7,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="abbonamenti")
+
 public class Abbonamento extends Acquisto {
+
     private Periodo periodo;
 
     @Column (name="data_di_scadenza")
@@ -23,6 +25,18 @@ public class Abbonamento extends Acquisto {
     //@OneToOne
     @Column(name="id_utente")
     private long idUtente;
+
+    @ManyToOne
+    @JoinColumn(name = "distributore_automatico_codice_distributore")
+    private DistributoreAutomatico distributoreAutomatico;
+
+    public DistributoreAutomatico getDistributoreAutomatico() {
+        return distributoreAutomatico;
+    }
+
+    public void setDistributoreAutomatico(DistributoreAutomatico distributoreAutomatico) {
+        this.distributoreAutomatico = distributoreAutomatico;
+    }
 
     public Abbonamento(){super();}
 
@@ -64,6 +78,7 @@ public class Abbonamento extends Acquisto {
     @Override
     public String toString() {
         return "Abbonamento{" +
+                "id=" + super.getId() +
                 "periodo=" + periodo +
                 ", scadenza=" + scadenza +
                 ", nome='" + nome + '\'' +

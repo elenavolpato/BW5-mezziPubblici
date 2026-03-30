@@ -1,5 +1,6 @@
 package dao;
 
+import entities.Acquisto;
 import entities.DistributoreAutomatico;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -18,4 +19,10 @@ public class DistributoreAutomaticoDao {
         ts.commit();
         System.out.println("distributore "+d.getId() + " salvato nel database");
     }
+
+    public DistributoreAutomatico findById(long id) {
+        return em.find(DistributoreAutomatico.class, id);
+
+    }
+
 }
