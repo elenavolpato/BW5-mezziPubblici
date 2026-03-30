@@ -20,10 +20,11 @@ public abstract class Biglietto {
     private LocalDate dataEmissione;
 
     public Biglietto(){};
-    public Biglietto(LocationAcquisto locationAcquisto, LocalDate dataEmissione){
+    public Biglietto(LocationAcquisto locationAcquisto){
         this.locationAcquisto = LocationAcquisto.AUTOMATICO;
+        // TODO: prendere il codice della location
         this.validato = false;
-        this.dataEmissione = LocalDate
+        this.dataEmissione = LocalDate.now();
     }
 
     public UUID getId() {        return id;    }
@@ -36,4 +37,14 @@ public abstract class Biglietto {
 
     public boolean isValidato() {       return validato;    }
     public void setValidato(boolean validato) {        this.validato = validato;    }
+
+    @Override
+    public String toString() {
+        return "Biglietto{" +
+                "id=" + id +
+                ", locationAcquisto=" + locationAcquisto +
+                ", validato=" + validato +
+                ", dataEmissione=" + dataEmissione +
+                '}';
+    }
 }
