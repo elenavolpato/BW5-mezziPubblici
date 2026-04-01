@@ -1,6 +1,4 @@
 package entities;
-
-import enumerated.TipoStato;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -11,14 +9,55 @@ public class StatoMezzo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private TipoStato stato; // Enum: IN_SERVIZIO, IN_MANUTENZIONE
-
+    @Column(name = "data_inizio")
     private LocalDate dataInizio;
+    @Column(name = "data_fine")
     private LocalDate dataFine;
+    @Column(name = "motivo")
     private String motivo;
 
     @ManyToOne
     @JoinColumn(name = "id_mezzo")
     private Mezzo mezzo;
+
+
+    protected StatoMezzo(){};
+
+    public StatoMezzo(String motivo, LocalDate dataInizio, LocalDate dataFine, Mezzo mezzo ){
+        this.motivo = motivo;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.mezzo = mezzo;
+    }
+
+    public Mezzo getMezzo() {
+        return mezzo;
+    }
+
+    public LocalDate getDataFine() {
+        return dataFine;
+    }
+
+    public LocalDate getDataInizio() {
+        return dataInizio;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    @Override
+    public String toString() {
+        return "StatoMezzo{" +
+                "id=" + id +
+                ", dataInizio=" + dataInizio +
+                ", dataFine=" + dataFine +
+                ", motivo='" + motivo + '\'' +
+                ", mezzo=" + mezzo +
+                '}';
+    }
 }
