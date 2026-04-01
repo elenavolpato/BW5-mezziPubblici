@@ -4,6 +4,8 @@ package entities;
 import enumerated.TipoMezzi;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table (name = "mezzi")
 public class Mezzo {
@@ -30,10 +32,10 @@ public class Mezzo {
     @JoinColumn(name = "id_biglietto", referencedColumnName = "id")
     private Biglietto biglietto;
 
+    @OneToMany(mappedBy = "mezzo")
+    private List<StatoMezzo> storicoStati;
 
-    public Mezzo() {
-
-    }
+    public Mezzo() {    }
 
     public Mezzo(Integer capienza, TipoMezzi tipo, Boolean inServizio, Tratta tratta, Biglietto biglietto) {
         this.capienza = capienza;

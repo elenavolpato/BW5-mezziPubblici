@@ -1,39 +1,53 @@
 package entities;
 
-import dao.DistributoreAutomaticoDao;
 import enumerated.LocationAcquisto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="biglietti")
+@PrimaryKeyJoinColumn(name = "id")
 
 public class Biglietto extends Acquisto {
-    private boolean validato;
-    private LocalDate dataEmissione;
+    @Column(name = "data_ora_validazione")
+    private LocalDateTime dataOraValidazione;
 
-    public Biglietto(){
-        super();
-    };
+    public Biglietto(){super();};
 
     public Biglietto(LocationAcquisto locationAcquisto, DistributoreAutomatico distributoreAutomatico) {
         super(locationAcquisto,distributoreAutomatico);
-        this.validato = super.isValidato();
-        this.dataEmissione = super.getDataEmissione();
     }
+
+    public void valida(Mezzo mezzo) {
+        this.dataOraValidazione = LocalDateTime.now();
+        this.setMezzo(mezzo); // Setting the FK in the parent class
+    }
+
+    public void validateOn(Mezzo mezzo) {
+        if (this.isValidato()) {
+            System.out.println("Ticket already used!");
+            return;
+        }
+        this.setValidato(true); // Updates the field in Acquisto
+        this.setMezzo(mezzo);     // Updates the FK in Acquisto
+        this.setDataOraValidazione(LocalDateTime.now()); // Specific to Biglietto
+    }
+
+    public LocalDateTime getDataOraValidazione() {        return dataOraValidazione;    }
+    public void setDataOraValidazione(LocalDateTime dataOraValidazione) {
+        this.dataOraValidazione = dataOraValidazione;
+    }
+
 
     @Override
     public String toString() {
         return "Biglietto{" +
-                "id=" + super.getId() +
-                ", locationAcquisto=" + super.getLocationAcquisto() +
-                ", validato=" + validato +
-                ", dataEmissione=" + dataEmissione +
+                "id=" + getId() +
+                ", validato=" + isValidato() +
+                ", dataEmissione=" + getDataEmissione() +
+                ", dataValidazione=" + dataOraValidazione +
+                ", mezzoId=" + (getMezzo() != null ? getMezzo().getId() : "Non validato") +
                 '}';
     }
 }
