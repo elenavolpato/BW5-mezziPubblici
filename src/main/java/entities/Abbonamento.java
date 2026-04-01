@@ -1,6 +1,5 @@
 package entities;
 
-import enumerated.LocationAcquisto;
 import enumerated.Periodo;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -17,8 +16,8 @@ public class Abbonamento extends Acquisto {
         super();
     }
 
-    public Abbonamento(LocationAcquisto location, LocalDate dataEmissione) {
-        super(location, dataEmissione);
+    public Abbonamento(PuntoDiVendita puntoDiVendita, LocalDate dataEmissione) {
+        super(puntoDiVendita, dataEmissione);
         this.periodo = periodo;
     }
 
@@ -29,7 +28,7 @@ public class Abbonamento extends Acquisto {
     public String toString() {
         return "Abbonamento{" +
                "id=" + getId() +
-               ", location=" + getLocationAcquisto() +
+               ", location=" + getPuntoDiVendita() +
                ", emesso=" + getDataEmissione() +
                ", periodo=" + periodo +
                 '}';
