@@ -11,7 +11,7 @@ import java.util.UUID;
 public abstract class PuntoDiVendita {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
     @Column(nullable = false)
     private String indirizzo;
 
@@ -22,7 +22,7 @@ public abstract class PuntoDiVendita {
         this.indirizzo = indirizzo;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

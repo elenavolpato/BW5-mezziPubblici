@@ -21,6 +21,8 @@ public class UserDAO {
         transaction.begin();
         entityManager.persist(user);
         transaction.commit();
+        // TODO funzione che crea la tessera
+
     }
 
     public void removeUser(User user) {

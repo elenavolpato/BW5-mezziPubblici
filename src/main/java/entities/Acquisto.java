@@ -13,7 +13,7 @@ public abstract class Acquisto {
     @Id
     @GeneratedValue
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="punto_di_vendita")
@@ -29,7 +29,7 @@ public abstract class Acquisto {
         this.dataEmissione = dataEmissione;
     }
 
-    public UUID getId() {        return id;    }
+    public long getId() {        return id;    }
 
     public LocalDate getDataEmissione() {        return dataEmissione;    }
     public void setDataEmissione(LocalDate dataEmissione) {        this.dataEmissione = dataEmissione;    }
