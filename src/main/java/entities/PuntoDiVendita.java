@@ -29,4 +29,12 @@ public abstract class PuntoDiVendita {
     public String getIndirizzo() {
         return indirizzo;
     }
+
+    @Override
+    public String toString() {
+        return "PuntoDiVendita{" +
+                "id=" + id +
+                ", indirizzo='" + indirizzo + '\'' +
+                '}';
+    }
 }
