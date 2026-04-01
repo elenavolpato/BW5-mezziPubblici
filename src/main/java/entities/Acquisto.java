@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "acquisti")
+@Table(name = "acquisto")
 
 public abstract class Acquisto {
     @Id
@@ -19,27 +19,16 @@ public abstract class Acquisto {
     @Enumerated(EnumType.STRING)
     @Column (name="location_acquisto")
     private LocationAcquisto location;
-
-    private boolean validato = false;
+    //PuntoDiVendita
 
     @Column (name="data_emissione")
     private LocalDate dataEmissione;
 
-
-//    @ManyToOne
-//    @JoinColumn(name = "rivenditore_id", nullable = true)
-//    private Rivenditore rivenditore;
-
-    @ManyToOne
-    @JoinColumn(name = "mezzo_id", nullable = true)
-    private Mezzo mezzo;
-
     public Acquisto(){};
-    public Acquisto(LocationAcquisto locationAcquisto/*, Rivenditore riv*/){
-        this.location = location;
-        this.validato = false; // Always false at purchase
-        this.dataEmissione = LocalDate.now();
 
+    public Acquisto(LocationAcquisto location, LocalDate dataEmissione){
+        this.location = location;
+        this.dataEmissione = dataEmissione;
     }
 
     public UUID getId() {        return id;    }
@@ -50,23 +39,13 @@ public abstract class Acquisto {
     public LocationAcquisto getLocationAcquisto() {        return location;    }
     public void setLocationAcquisto(LocationAcquisto location) {        this.location = location;    }
 
-    public boolean isValidato() {       return validato;    }
-    public void setValidato(boolean validato) {        this.validato = validato;    }
-
-//    public Rivenditore getRivenditore() { return rivenditore; }
-//    public void setRivenditore(Rivenditore rivenditore) { this.rivenditore = rivenditore; }
-
-    public Mezzo getMezzo() { return mezzo; }
-    public void setMezzo(Mezzo mezzo) { this.mezzo = mezzo; }
 
     @Override
     public String toString() {
         return "Acquisto{" +
                 "id=" + id +
                 ", location=" + location +
-                ", validato=" + validato +
                 ", emesso=" + dataEmissione +
-                ", mezzo=" + (mezzo != null ? mezzo.getId() : "N/A") +
                 '}';
     }
 }

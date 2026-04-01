@@ -12,6 +12,10 @@ public class Application {
 
 public static void main(String[] args){
     EntityManager em = emf.createEntityManager();
+    AcquistoDAO acquistoDAO = new AcquistoDAO(em);
+    DistributoreAutomaticoDao distributoreAutomaticoDao = new DistributoreAutomaticoDao(em);
+
+    System.out.println("funziona");
     em.close();
     emf.close();
     }
