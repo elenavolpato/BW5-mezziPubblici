@@ -24,9 +24,6 @@ public class Mezzo {
     @Column (name = "in_servizio", nullable = false)
     private Boolean inServizio;
 
-    @OneToOne
-    @JoinColumn(name = "tratte_id", referencedColumnName = "id")
-    private Tratta tratta;
 
 
     @OneToMany(mappedBy = "mezzo")
@@ -38,17 +35,9 @@ public class Mezzo {
         this.capienza = capienza;
         this.tipo = tipo;
         this.inServizio = inServizio;
-        this.tratta = tratta;
-
+        this.biglietto = biglietto;
     }
 
-    public Tratta getTratta() {
-        return tratta;
-    }
-
-    public void setTratta(Tratta tratta) {
-        this.tratta = tratta;
-    }
 
 
     public Long getId() {
@@ -83,6 +72,7 @@ public class Mezzo {
         this.capienza = capienza;
     }
 
+
     @Override
     public String toString() {
         return "Mezzo{" +
@@ -90,7 +80,7 @@ public class Mezzo {
                 ", capienza=" + capienza +
                 ", tipo=" + tipo +
                 ", inServizio=" + inServizio +
-                ", tratta=" + tratta +
+                ", biglietto=" + biglietto +
                 '}';
     }
 }

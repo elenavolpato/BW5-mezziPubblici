@@ -1,22 +1,30 @@
 package entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Distributori_automatici")
-public class DistributoreAutomatico {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codice_distributore")
-    private long id;
+@DiscriminatorValue("distributore")
+@Table(name = "distributori_automatici")
+public class DistributoreAutomatico extends PuntoDiVendita{
     private boolean attivo;
 
-    protected   DistributoreAutomatico(){};
-    public  DistributoreAutomatico(Boolean attivo){
+   protected  DistributoreAutomatico(){}
+    public DistributoreAutomatico(String indirizzo,boolean attivo) {
+        super(indirizzo);
         this.attivo = attivo;
     }
+    public boolean isAttivo() {
+        return attivo;
+    }
 
-    public long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "DistributoreAutomatico{" +
+                "attivo=" + attivo +
+                " indirizzo='" + super.getIndirizzo() + '\'' +
+                "id='" + super.getId() + '\'' +
+                '}';
     }
 }
