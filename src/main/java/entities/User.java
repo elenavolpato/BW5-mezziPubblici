@@ -13,9 +13,8 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
-        this.id = id;
-        this.nome = nome;
+    public User( String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
+                this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
         this.tipoUtente = tipoUtente;

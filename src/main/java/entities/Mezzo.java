@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table (name = "mezzi")
 public class Mezzo {
-
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,8 +23,6 @@ public class Mezzo {
     @Column (name = "in_servizio", nullable = false)
     private Boolean inServizio;
 
-
-
     @OneToMany(mappedBy = "mezzo")
     private List<StatoMezzo> storicoStati;
 
@@ -35,15 +32,11 @@ public class Mezzo {
         this.capienza = capienza;
         this.tipo = tipo;
         this.inServizio = inServizio;
-        this.biglietto = biglietto;
     }
-
-
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -51,7 +44,6 @@ public class Mezzo {
     public Boolean getInServizio() {
         return inServizio;
     }
-
     public void setInServizio(Boolean inServizio) {
         this.inServizio = inServizio;
     }
@@ -59,7 +51,6 @@ public class Mezzo {
     public TipoMezzi getTipo() {
         return tipo;
     }
-
     public void setTipo(TipoMezzi tipo) {
         this.tipo = tipo;
     }
@@ -67,7 +58,6 @@ public class Mezzo {
     public Integer getCapienza() {
         return capienza;
     }
-
     public void setCapienza(Integer capienza) {
         this.capienza = capienza;
     }
@@ -80,7 +70,6 @@ public class Mezzo {
                 ", capienza=" + capienza +
                 ", tipo=" + tipo +
                 ", inServizio=" + inServizio +
-                ", biglietto=" + biglietto +
                 '}';
     }
 }
