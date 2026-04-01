@@ -28,10 +28,11 @@ public class UtenzaService {
 
         transaction.begin();
         User user = new User(nome,cognome,dataDiNascita,tipoUtente);
-        userDAO.saveUser(user);
+
+
 
         Tessera newTessera = new Tessera(nome,cognome,dataDiNascita,tipoUtente,LocalDate.now());
-
+        System.out.println(newTessera);
         switch(periodo) {
             case MENSILE:
                 newTessera.setScadenza(LocalDate.now().plusMonths(1));

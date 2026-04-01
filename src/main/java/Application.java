@@ -23,8 +23,9 @@ public static void main(String[] args){
     UserDAO userDAO = new UserDAO(em);
 
 
-    UtenzaService service1 = new UtenzaService(userDAO,tesseraDAO,em);
-    service1.registraDatiUtente("Giovanni","Giorgio",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
+    UtenzaService service = new UtenzaService(userDAO,tesseraDAO,em);
+    service.registraDatiUtente("Abdellah","Bazi",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
+    service.registraDatiUtente("Elena","Volpato",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
 
 
     System.out.println("funziona");
