@@ -1,6 +1,5 @@
 package entities;
 
-import enumerated.LocationAcquisto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -21,8 +20,8 @@ public class Biglietto extends Acquisto {
 
     public Biglietto(){super();};
 
-    public Biglietto(LocationAcquisto locationAcquisto, LocalDate dataEmissione) {
-        super(locationAcquisto,dataEmissione);
+    public Biglietto(PuntoDiVendita puntoDiVendita, LocalDate dataEmissione) {
+        super(puntoDiVendita,dataEmissione);
     }
 
     public void validateOn(Mezzo mezzo) {
@@ -44,7 +43,7 @@ public class Biglietto extends Acquisto {
         return "Biglietto{" +
                 "id=" + getId() +
                 ", dataEmissione=" + getDataEmissione() +
-                ", location=" + getLocationAcquisto() +
+                ", location=" + getPuntoDiVendita() +
                 ", validato=" +( dataOraValidazione != null ? dataOraValidazione : "Biglietto ancora non validato") +
                 ", mezzoId=" + (getMezzo() != null ? getMezzo().getId() : "Non validato") +
                 '}';

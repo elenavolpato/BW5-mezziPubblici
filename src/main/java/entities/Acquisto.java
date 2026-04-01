@@ -1,6 +1,5 @@
 package entities;
 
-import enumerated.LocationAcquisto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -16,18 +15,17 @@ public abstract class Acquisto {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column (name="location_acquisto")
-    private LocationAcquisto location;
-    //PuntoDiVendita
+    @ManyToOne
+    @JoinColumn(name="punto_di_vendita")
+    private PuntoDiVendita puntoDiVendita;
 
     @Column (name="data_emissione")
     private LocalDate dataEmissione;
 
     public Acquisto(){};
 
-    public Acquisto(LocationAcquisto location, LocalDate dataEmissione){
-        this.location = location;
+    public Acquisto(PuntoDiVendita puntoDiVendita, LocalDate dataEmissione){
+        this.puntoDiVendita = puntoDiVendita;
         this.dataEmissione = dataEmissione;
     }
 
@@ -36,15 +34,15 @@ public abstract class Acquisto {
     public LocalDate getDataEmissione() {        return dataEmissione;    }
     public void setDataEmissione(LocalDate dataEmissione) {        this.dataEmissione = dataEmissione;    }
 
-    public LocationAcquisto getLocationAcquisto() {        return location;    }
-    public void setLocationAcquisto(LocationAcquisto location) {        this.location = location;    }
+    public PuntoDiVendita getPuntoDiVendita() {        return puntoDiVendita;    }
+    public void setPuntoDiVendita(PuntoDiVendita puntoDiVendita) {        this.puntoDiVendita = puntoDiVendita;    }
 
 
     @Override
     public String toString() {
         return "Acquisto{" +
                 "id=" + id +
-                ", location=" + location +
+                ", punto di vendita=" + puntoDiVendita +
                 ", emesso=" + dataEmissione +
                 '}';
     }

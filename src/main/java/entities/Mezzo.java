@@ -24,9 +24,6 @@ public class Mezzo {
     @Column (name = "in_servizio", nullable = false)
     private Boolean inServizio;
 
-    @OneToOne
-    @JoinColumn(name = "tratte_id", referencedColumnName = "id")
-    private Tratta tratta;
 
     @ManyToOne
     @JoinColumn(name = "id_biglietto", referencedColumnName = "id")
@@ -41,17 +38,9 @@ public class Mezzo {
         this.capienza = capienza;
         this.tipo = tipo;
         this.inServizio = inServizio;
-        this.tratta = tratta;
         this.biglietto = biglietto;
     }
 
-    public Tratta getTratta() {
-        return tratta;
-    }
-
-    public void setTratta(Tratta tratta) {
-        this.tratta = tratta;
-    }
 
     public Biglietto getBiglietto() {
         return biglietto;
@@ -101,7 +90,6 @@ public class Mezzo {
                 ", capienza=" + capienza +
                 ", tipo=" + tipo +
                 ", inServizio=" + inServizio +
-                ", tratta=" + tratta +
                 ", biglietto=" + biglietto +
                 '}';
     }
