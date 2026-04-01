@@ -7,10 +7,9 @@
         <class>entities.Abbonamento</class>
         <class>entities.Acquisto</class>
         <class>entities.Tratta</class>
-        <class>entities.InManutenzione</class>
         <class>entities.Percorrenza</class>
         <class>entities.StatoMezzo</class>
-        <class>entities.DistributoreAutomatico</class>
+        
         <class>entities.Mezzo</class>
         <class>entities.User</class>
         <properties>

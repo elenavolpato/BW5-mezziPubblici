@@ -38,18 +38,17 @@ public abstract class Acquisto {
     private Mezzo mezzo;
 
     public Acquisto(){};
-    public Acquisto(LocationAcquisto locationAcquisto,DistributoreAutomatico dist/*, Rivenditore riv*/){
+    public Acquisto(LocationAcquisto location, LocalDate dataEmissione){
         this.location = location;
-        this.validato = false; // Always false at purchase
         this.dataEmissione = LocalDate.now();
 
-        if (location == LocationAcquisto.AUTOMATICO) {
-            this.distributoreAutomatico = dist;
-            //this.rivenditore = null;
-        } else {
-           // this.rivenditore = riv;
-            this.distributoreAutomatico = null;
-        }
+//        if (location == LocationAcquisto.AUTOMATICO) {
+//            this.distributoreAutomatico = dist;
+//            //this.rivenditore = null;
+//        } else {
+//           // this.rivenditore = riv;
+//            this.distributoreAutomatico = null;
+//        }
     }
 
     public UUID getId() {        return id;    }
@@ -77,9 +76,7 @@ public abstract class Acquisto {
         return "Acquisto{" +
                 "id=" + id +
                 ", location=" + location +
-                ", validato=" + validato +
                 ", emesso=" + dataEmissione +
-                ", mezzo=" + (mezzo != null ? mezzo.getId() : "N/A") +
                 '}';
     }
 }

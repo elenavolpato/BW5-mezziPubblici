@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="biglietti")
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "id_acquisto")
 
 public class Biglietto extends Acquisto {
-    @Column(name = "data_ora_validazione")
+    @Column(name = "data_ora_validazione", nullable = true)
     private LocalDateTime dataOraValidazione;
 
     public Biglietto(){super();};
@@ -19,12 +19,7 @@ public class Biglietto extends Acquisto {
         super(locationAcquisto,distributoreAutomatico);
     }
 
-    public void valida(Mezzo mezzo) {
-        this.dataOraValidazione = LocalDateTime.now();
-        this.setMezzo(mezzo); // Setting the FK in the parent class
-    }
-
-    public void validateOn(Mezzo mezzo) {
+      public void validateOn(Mezzo mezzo) {
         if (this.isValidato()) {
             System.out.println("Ticket already used!");
             return;
@@ -44,7 +39,6 @@ public class Biglietto extends Acquisto {
     public String toString() {
         return "Biglietto{" +
                 "id=" + getId() +
-                ", validato=" + isValidato() +
                 ", dataEmissione=" + getDataEmissione() +
                 ", dataValidazione=" + dataOraValidazione +
                 ", mezzoId=" + (getMezzo() != null ? getMezzo().getId() : "Non validato") +

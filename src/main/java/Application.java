@@ -19,14 +19,6 @@ public static void main(String[] args){
     AcquistoDAO acquistoDAO = new AcquistoDAO(em);
     DistributoreAutomaticoDao distributoreAutomaticoDao = new DistributoreAutomaticoDao(em);
 
-    DistributoreAutomatico d1 = new DistributoreAutomatico(true);
-    Biglietto b1 = new Biglietto(LocationAcquisto.AUTOMATICO,d1);
-    distributoreAutomaticoDao.save(d1);
-    acquistoDAO.save(b1);
-    DistributoreAutomatico foundD = distributoreAutomaticoDao.findById(1);
-    acquistoDAO.save(b1);
-
-    Abbonamento ab = new Abbonamento(LocationAcquisto.RIVENDITORE,foundD, Periodo.MENSILE, LocalDate.now(), "Carolina", "Santos" , LocalDate.of(1900,01,01));
-    acquistoDAO.save(ab);
+    System.out.println("funziona");
     }
 }
