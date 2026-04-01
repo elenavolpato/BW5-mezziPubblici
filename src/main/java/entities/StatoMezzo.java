@@ -20,5 +20,5 @@ public class StatoMezzo {
 
     @ManyToOne
     @JoinColumn(name = "id_mezzo")
-    private Mezzo mezzo; // This creates the connection to your vehicle
+    private Mezzo mezzo;
 }
