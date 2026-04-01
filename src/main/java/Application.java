@@ -29,4 +29,5 @@ public static void main(String[] args){
     Abbonamento ab = new Abbonamento(LocationAcquisto.RIVENDITORE,foundD, Periodo.MENSILE, LocalDate.now(), "Carolina", "Santos" , LocalDate.of(1900,01,01));
     acquistoDAO.save(ab);
     }
+
 }
