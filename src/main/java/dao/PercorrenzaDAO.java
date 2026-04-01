@@ -14,7 +14,7 @@ public class PercorrenzaDAO {
 
     public PercorrenzaDAO(EntityManager em){this.em= em;}
 
-    public void savePercorrenza(Tratta newPercorrenza){
+    public void savePercorrenza(Percorrenza newPercorrenza){
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 

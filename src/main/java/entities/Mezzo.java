@@ -28,7 +28,7 @@ public class Mezzo {
 
     public Mezzo() {    }
 
-    public Mezzo(Integer capienza, TipoMezzi tipo, Boolean inServizio, Tratta tratta, Biglietto biglietto) {
+    public Mezzo(Integer capienza, TipoMezzi tipo, Boolean inServizio, Tratta tratta, Acquisto biglietto) {
         this.capienza = capienza;
         this.tipo = tipo;
         this.inServizio = inServizio;

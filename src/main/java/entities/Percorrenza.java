@@ -11,7 +11,7 @@ import java.util.UUID;
 public class Percorrenza {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Column(name = "n_tratte_percorse")
     private int nTrattePercorse;
@@ -63,7 +63,7 @@ public class Percorrenza {
         return tratta;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

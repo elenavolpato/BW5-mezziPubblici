@@ -38,9 +38,10 @@ public class AcquistoDAO {
     }
 
     public void deleteAcquistoById(String id) {
+        Acquisto found = findById(id);
         EntityTransaction t = em.getTransaction();
         t.begin();
-        em.remove(findById(id));
+        em.remove(found);
         t.commit();
         System.out.println("Ticket " + id + " è stato cancellato.");
     }

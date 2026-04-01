@@ -9,19 +9,15 @@ import java.util.UUID;
 @Entity
 @Table(name = "tratte")
 public class Tratta {
-
-
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
     @Column(name = "zona_di_partenza")
     private String zonaDiPartenza;
     @Column(name = "capolinea")
     private String capolinea;
     @Column(name = "tempo_previsto")
     private int tempoPrevisto;
-
-
 
 
     protected Tratta(){};
@@ -32,7 +28,7 @@ public class Tratta {
         this.tempoPrevisto = tempoPrevisto;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
