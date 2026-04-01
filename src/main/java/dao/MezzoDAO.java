@@ -13,10 +13,21 @@ public class MezzoDAO {
     }
 
 
-    public void save(Mezzo mezzo) {
+    public void saveMezzo(Mezzo mezzo) {
         EntityTransaction transaction = this.entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(mezzo);
+        transaction.commit();
+    }
+
+    public Mezzo findMezzoById(Long id) {
+        return  entityManager.find(Mezzo.class, id );
+    }
+
+    public void deleteMezzo(Mezzo mezzo) {
+        EntityTransaction transaction = this.entityManager.getTransaction();
+        transaction.begin();
+        entityManager.remove(mezzo);
         transaction.commit();
     }
 }

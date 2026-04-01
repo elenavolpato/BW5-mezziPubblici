@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+
 @MappedSuperclass
 public abstract class Acquisto {
     @Id
