@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "Tessera")
 @PrimaryKeyJoinColumn(name = "id")
+
 public class Tessera extends User {
 
     public Tessera() {
