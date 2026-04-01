@@ -15,8 +15,8 @@ public class Biglietto extends Acquisto {
 
     public Biglietto(){super();};
 
-    public Biglietto(LocationAcquisto locationAcquisto, DistributoreAutomatico distributoreAutomatico) {
-        super(locationAcquisto,distributoreAutomatico);
+    public Biglietto(LocationAcquisto locationAcquisto) {
+        super(locationAcquisto);
     }
 
     public void valida(Mezzo mezzo) {

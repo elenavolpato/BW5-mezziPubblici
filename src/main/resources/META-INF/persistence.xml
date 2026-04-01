@@ -7,12 +7,13 @@
         <class>entities.Abbonamento</class>
         <class>entities.Acquisto</class>
         <class>entities.Tratta</class>
-        <class>entities.InManutenzione</class>
         <class>entities.Percorrenza</class>
         <class>entities.StatoMezzo</class>
-        <class>entities.DistributoreAutomatico</class>
         <class>entities.Mezzo</class>
         <class>entities.User</class>
+        <class>entities.PuntoDiVendita</class>
+        <class>entities.Rivenditore</class>
+        <class>entities.DistributoreAutomatico</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/BW5-mezziPubblici"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>

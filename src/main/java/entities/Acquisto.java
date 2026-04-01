@@ -25,9 +25,6 @@ public abstract class Acquisto {
     @Column (name="data_emissione")
     private LocalDate dataEmissione;
 
-    @ManyToOne
-    @JoinColumn(name = "distributore_id",nullable = true)
-    private DistributoreAutomatico distributoreAutomatico;
 
 //    @ManyToOne
 //    @JoinColumn(name = "rivenditore_id", nullable = true)
@@ -38,18 +35,11 @@ public abstract class Acquisto {
     private Mezzo mezzo;
 
     public Acquisto(){};
-    public Acquisto(LocationAcquisto locationAcquisto,DistributoreAutomatico dist/*, Rivenditore riv*/){
+    public Acquisto(LocationAcquisto locationAcquisto/*, Rivenditore riv*/){
         this.location = location;
         this.validato = false; // Always false at purchase
         this.dataEmissione = LocalDate.now();
 
-        if (location == LocationAcquisto.AUTOMATICO) {
-            this.distributoreAutomatico = dist;
-            //this.rivenditore = null;
-        } else {
-           // this.rivenditore = riv;
-            this.distributoreAutomatico = null;
-        }
     }
 
     public UUID getId() {        return id;    }
@@ -65,9 +55,6 @@ public abstract class Acquisto {
 
 //    public Rivenditore getRivenditore() { return rivenditore; }
 //    public void setRivenditore(Rivenditore rivenditore) { this.rivenditore = rivenditore; }
-
-    public DistributoreAutomatico getDistributoreAutomatico() { return distributoreAutomatico; }
-    public void setDistributoreAutomatico(DistributoreAutomatico dist) { this.distributoreAutomatico = dist; }
 
     public Mezzo getMezzo() { return mezzo; }
     public void setMezzo(Mezzo mezzo) { this.mezzo = mezzo; }
