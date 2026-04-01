@@ -7,8 +7,9 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Utente")
+@Table(name = "utente")
 @Inheritance(strategy = InheritanceType.JOINED)
+
 public class User {
 
     public User() {
@@ -23,7 +24,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     @Column (nullable = false)
     private String nome;
@@ -37,10 +38,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private TipoUtente tipoUtente;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(UUID id) {        this.id = id;    }
+    public void setId(Long id) {        this.id = id;    }
 
     public String getNome() {
         return nome;
