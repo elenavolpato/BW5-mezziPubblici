@@ -26,22 +26,13 @@ public class Abbonamento extends Acquisto {
     @Column(name="id_utente")
     private long idUtente;
 
-    @ManyToOne
-    @JoinColumn(name = "distributore_automatico_codice_distributore")
-    private DistributoreAutomatico distributoreAutomatico;
 
-    public DistributoreAutomatico getDistributoreAutomatico() {
-        return distributoreAutomatico;
-    }
 
-    public void setDistributoreAutomatico(DistributoreAutomatico distributoreAutomatico) {
-        this.distributoreAutomatico = distributoreAutomatico;
-    }
 
     public Abbonamento(){super();}
 
-    public Abbonamento(LocationAcquisto locationAcquisto, DistributoreAutomatico distributoreAutomatico, Periodo periodo, LocalDate scadenza, String nome, String cognome, LocalDate dataDiNascita){
-        super(locationAcquisto,distributoreAutomatico);
+    public Abbonamento(LocationAcquisto locationAcquisto, Periodo periodo, LocalDate scadenza, String nome, String cognome, LocalDate dataDiNascita){
+        super(locationAcquisto);
         this.periodo = Periodo.SETTIMANALE;
         this.scadenza = setScadenza(getDataEmissione());
         this.nome = nome;
