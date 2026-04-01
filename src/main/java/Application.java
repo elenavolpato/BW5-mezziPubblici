@@ -81,7 +81,14 @@ public static void main(String[] args){
     public static void acquisto(PuntoDiVendita puntoScelto){
         boolean risp = false;
         int risposta = 0;
+        String RESET  = "\u001B[0m";
+        String GREEN  = "\u001B[32m";
 
+        System.out.println(GREEN+"░░░░░  ░   ░  ░░░░   ░░░░  "+RESET);
+        System.out.println(GREEN+"░      ░   ░ ░    ░ ░    ░ "+RESET);
+        System.out.println(GREEN+"░░░░   ░░░░░ ░    ░ ░░░░░  "+RESET);
+        System.out.println(GREEN+"    ░  ░   ░ ░    ░ ░      "+RESET);
+        System.out.println(GREEN+"░░░░░  ░   ░  ░░░░  ░      "+RESET);
         while(!risp){
             System.out.println("ok allora puoi acquistare un nuovo biglietto o un'abbonamento...\n" +
                     "cosa scegli :\n1 - biglietto\n2 - abbonamento");
