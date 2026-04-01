@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Mezzo;
+import entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -13,21 +14,19 @@ public class UserDAO {
 
     public Mezzo findUserById(Long id) {
         return entityManager.find(Mezzo.class, id);
-
     }
 
-    public void saveUser(Mezzo mezzo) {
+    public void saveUser(User user) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        entityManager.persist(mezzo);
+        entityManager.persist(user);
         transaction.commit();
-
     }
 
-    public void removeUser(Mezzo mezzo) {
+    public void removeUser(User user) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        entityManager.remove(mezzo);
+        entityManager.remove(user);
         transaction.commit();
     }
 

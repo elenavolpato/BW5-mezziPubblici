@@ -13,8 +13,8 @@ public class Tessera extends User {
         this.scadenza = scadenza;
     }
 
-    public Tessera(Long id, String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente, LocalDate scadenza) {
-        super(id, nome, cognome, dataDiNascita, tipoUtente);
+    public Tessera(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente, LocalDate scadenza) {
+        super( nome, cognome, dataDiNascita, tipoUtente);
         this.scadenza = scadenza;
     }
 
