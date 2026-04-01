@@ -11,6 +11,7 @@
         <class>entities.StatoMezzo</class>
         <class>entities.Mezzo</class>
         <class>entities.User</class>
+        <class>entities.Tessera</class>
         <class>entities.PuntoDiVendita</class>
         <class>entities.Rivenditore</class>
         <class>entities.DistributoreAutomatico</class>

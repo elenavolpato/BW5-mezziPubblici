@@ -25,9 +25,6 @@ public class Mezzo {
     private Boolean inServizio;
 
 
-    @ManyToOne
-    @JoinColumn(name = "id_biglietto", referencedColumnName = "id")
-    private Biglietto biglietto;
 
     @OneToMany(mappedBy = "mezzo")
     private List<StatoMezzo> storicoStati;
@@ -42,13 +39,6 @@ public class Mezzo {
     }
 
 
-    public Biglietto getBiglietto() {
-        return biglietto;
-    }
-
-    public void setBiglietto(Biglietto biglietto) {
-        this.biglietto = biglietto;
-    }
 
     public Long getId() {
         return id;

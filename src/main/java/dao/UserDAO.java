@@ -4,30 +4,31 @@ import entities.Mezzo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class MezzoDAO {
+public class UserDAO {
     private final EntityManager entityManager;
 
-
-    public MezzoDAO(EntityManager entityManager) {
+    public UserDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    public Mezzo findUserById(Long id) {
+        return entityManager.find(Mezzo.class, id);
 
-    public void saveMezzo(Mezzo mezzo) {
-        EntityTransaction transaction = this.entityManager.getTransaction();
+    }
+
+    public void saveUser(Mezzo mezzo) {
+        EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(mezzo);
         transaction.commit();
+
     }
 
-    public Mezzo findMezzoById(Long id) {
-        return  entityManager.find(Mezzo.class, id );
-    }
-
-    public void deleteMezzo(Mezzo mezzo) {
-        EntityTransaction transaction = this.entityManager.getTransaction();
+    public void removeUser(Mezzo mezzo) {
+        EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.remove(mezzo);
         transaction.commit();
     }
+
 }
