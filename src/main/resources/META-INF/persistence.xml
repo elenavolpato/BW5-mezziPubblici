@@ -9,7 +9,7 @@
         <class>entities.Tratta</class>
         <class>entities.Percorrenza</class>
         <class>entities.StatoMezzo</class>
-        
+
         <class>entities.Mezzo</class>
         <class>entities.User</class>
         <properties>

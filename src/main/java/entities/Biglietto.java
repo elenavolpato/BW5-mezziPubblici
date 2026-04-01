@@ -3,31 +3,35 @@ package entities;
 import enumerated.LocationAcquisto;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="biglietti")
-@PrimaryKeyJoinColumn(name = "id_acquisto")
+@PrimaryKeyJoinColumn(name = "id")
 
 public class Biglietto extends Acquisto {
+
     @Column(name = "data_ora_validazione", nullable = true)
     private LocalDateTime dataOraValidazione;
 
+    @ManyToOne
+    @JoinColumn(name = "id_mezzo", nullable = true)
+    private Mezzo mezzo;
+
     public Biglietto(){super();};
 
-    public Biglietto(LocationAcquisto locationAcquisto, DistributoreAutomatico distributoreAutomatico) {
-        super(locationAcquisto,distributoreAutomatico);
+    public Biglietto(LocationAcquisto locationAcquisto, LocalDate dataEmissione) {
+        super(locationAcquisto,dataEmissione);
     }
 
-      public void validateOn(Mezzo mezzo) {
-        if (this.isValidato()) {
-            System.out.println("Ticket already used!");
-            return;
-        }
-        this.setValidato(true); // Updates the field in Acquisto
-        this.setMezzo(mezzo);     // Updates the FK in Acquisto
-        this.setDataOraValidazione(LocalDateTime.now()); // Specific to Biglietto
+    public void validateOn(Mezzo mezzo) {
+        this.mezzo = mezzo;
+        this.setDataOraValidazione(LocalDateTime.now());
     }
+
+    public Mezzo getMezzo() { return mezzo; }
+    public void setMezzo(Mezzo mezzo) { this.mezzo = mezzo; }
 
     public LocalDateTime getDataOraValidazione() {        return dataOraValidazione;    }
     public void setDataOraValidazione(LocalDateTime dataOraValidazione) {
@@ -40,7 +44,8 @@ public class Biglietto extends Acquisto {
         return "Biglietto{" +
                 "id=" + getId() +
                 ", dataEmissione=" + getDataEmissione() +
-                ", dataValidazione=" + dataOraValidazione +
+                ", location=" + getLocationAcquisto() +
+                ", validato=" +( dataOraValidazione != null ? dataOraValidazione : "Biglietto ancora non validato") +
                 ", mezzoId=" + (getMezzo() != null ? getMezzo().getId() : "Non validato") +
                 '}';
     }

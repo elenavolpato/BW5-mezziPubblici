@@ -22,20 +22,15 @@ public class Abbonamento extends Acquisto {
         this.periodo = periodo;
     }
 
-    public Periodo getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
+    public Periodo getPeriodo() {        return periodo;    }
+    public void setPeriodo(Periodo periodo) {        this.periodo = periodo;    }
 
     @Override
     public String toString() {
         return "Abbonamento{" +
-               "id=" + super.getId() +
-               ", location=" + super.getLocationAcquisto() +
-               ", emesso=" + super.getDataEmissione() +
+               "id=" + getId() +
+               ", location=" + getLocationAcquisto() +
+               ", emesso=" + getDataEmissione() +
                ", periodo=" + periodo +
                 '}';
     }
