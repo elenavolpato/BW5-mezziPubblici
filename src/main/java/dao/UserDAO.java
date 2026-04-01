@@ -1,9 +1,14 @@
 package dao;
 
 import entities.Mezzo;
+import entities.Tessera;
 import entities.User;
+import enumerated.Periodo;
+import enumerated.TipoUtente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+
+import java.time.LocalDate;
 
 public class UserDAO {
     private final EntityManager entityManager;
@@ -30,4 +35,33 @@ public class UserDAO {
         transaction.commit();
     }
 
+    public User creazioneUtenza(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente,Periodo periodo){
+        User user = new User(nome,cognome,dataDiNascita,tipoUtente);
+        creazioneTessera(periodo);
+
+        return user;
+    }
+
+
+    public void creazioneTessera(Periodo periodo){
+        Tessera newTessera = new Tessera();
+        calcoloPeriodoValidita(periodo,newTessera);
+
+    }
+    public void calcoloPeriodoValidita(Periodo periodo, Tessera newTessera){
+
+
+        switch(periodo) {
+            case MENSILE:
+                newTessera.setScadenza(LocalDate.now().plusMonths(1));
+                break;
+        case SETTIMANALE:
+                newTessera.setScadenza(LocalDate.now().plusDays(7));
+                break;
+            default:
+                System.out.println("scelta non valida");
+        }
+
+
+    }
 }

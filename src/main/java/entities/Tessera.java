@@ -9,8 +9,8 @@ import java.time.LocalDate;
 @PrimaryKeyJoinColumn(name = "id")
 public class Tessera extends User {
 
-    public Tessera(LocalDate scadenza) {
-        this.scadenza = scadenza;
+    public Tessera() {
+
     }
 
     public Tessera(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente, LocalDate scadenza) {
