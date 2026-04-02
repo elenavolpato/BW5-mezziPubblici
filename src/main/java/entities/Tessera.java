@@ -16,9 +16,8 @@ public class Tessera extends User {
 
     public Tessera(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
         super( nome, cognome, dataDiNascita, tipoUtente);
-        this.scadenza = LocalDate.now().plusYears(1) ;
+        this.scadenza = LocalDate.now().plusYears(1);
     }
-
 
 
     public LocalDate getScadenza() {
