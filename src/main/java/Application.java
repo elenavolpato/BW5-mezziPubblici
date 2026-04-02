@@ -65,9 +65,9 @@ public static void main(String[] args){
 
     DistributoreAutomatico pv1 = new DistributoreAutomatico("via Roma, 2", true);
     DistributoreAutomatico pv2 = new DistributoreAutomatico("Piazza Duomo", true);
-    Rivenditore pv3 = new Rivenditore("Corso Buenos Aires 15", "Tabaccheria Rossi");
+    Rivenditore pv3 = new Rivenditore("Corso Buenos Aires 15","Tabaccheria Rossi");
     Rivenditore pv4 = new Rivenditore("Corso Giolotti, 45", "Tabaccheria Giolotti");
-     pvDAO.save(pv2); pvDAO.save(pv3); pvDAO.save(pv4);
+    pvDAO.save(pv2); pvDAO.save(pv3); pvDAO.save(pv4);
     pvDAO.save(pv1);
     //PuntoDiVendita foundPv1 = pvDAO.findById("768d306e-9a65-4f6a-bac4-6ea4d9f800bd");
 
@@ -78,18 +78,11 @@ public static void main(String[] args){
     Biglietto b2 = new Biglietto(pv2, LocalDate.of(2025, 5, 10));
     Biglietto b3 = new Biglietto(pv1, LocalDate.now());
     Biglietto b4 = new Biglietto(pv4, LocalDate.of(2026, 01, 15));
-     acquistoDAO.save(b2); acquistoDAO.save(b3); acquistoDAO.save(b4);
+    acquistoDAO.save(b2); acquistoDAO.save(b3); acquistoDAO.save(b4);
     acquistoDAO.save(b1);
     //Acquisto foundB1 = acquistoDAO.findById(1L);
 
-    Abbonamento a1 = new Abbonamento(pv1, LocalDate.of(2025, 10,5));
-    Abbonamento a2 = new Abbonamento(pv4, LocalDate.of(2026,1,1));
-    Abbonamento a3 = new Abbonamento(pv3, LocalDate.of(2026, 2, 10));
-    Abbonamento a4 = new Abbonamento(pv2, LocalDate.of(2026,3,9));
 
-    acquistoDAO.save(a1);acquistoDAO.save(a2);acquistoDAO.save(a3); acquistoDAO.save(a4);
-  
-  
 
 
     // ----------------------------------- MEZZO ------------------------------
@@ -98,12 +91,24 @@ public static void main(String[] args){
     Mezzo m2 = new Mezzo(150, TipoMezzi.TRAM, true, t2, b1);
     Mezzo m3 = new Mezzo(80, TipoMezzi.AUTOBUS, false, t3, b4); // In manutenzione
     Mezzo m4 = new Mezzo(200, TipoMezzi.TRAM, true, t3, b3);
-     mezzoDAO.saveMezzo(m2); mezzoDAO.saveMezzo(m3); mezzoDAO.saveMezzo(m4);
+    mezzoDAO.saveMezzo(m2); mezzoDAO.saveMezzo(m3); mezzoDAO.saveMezzo(m4);
 
     //Mezzo foundM2 = mezzoDAO.findMezzoById(2L);
     //Mezzo foundM3 = mezzoDAO.findMezzoById(3L);
     mezzoDAO.saveMezzo(m1);
     //Mezzo foundM1 = mezzoDAO.findMezzoById(1L);
+
+
+
+
+    // --------------------------- PERCORRENZA ----------------------------
+
+    Percorrenza p1 = new Percorrenza(5, t4, m1);
+    Percorrenza p2 = new Percorrenza(45, t2, m1);
+    Percorrenza p3 = new Percorrenza(20, t4, m3);
+    Percorrenza p4 = new Percorrenza(65, t1,m2);
+    percorrenzaDAO.savePercorrenza(p2); percorrenzaDAO.savePercorrenza(p3); percorrenzaDAO.savePercorrenza(p4);
+    percorrenzaDAO.savePercorrenza(p1);
 
     em.close();
     emf.close();
