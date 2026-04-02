@@ -73,7 +73,7 @@ public class UtenzaService {
         if (tessera == null) {
             throw new IllegalArgumentException("Tessera non trovata");
         }
-        tessera.setScadenza(tessera.getScadenza().plusYears(1));
+        tessera.setScadenza(LocalDate.now().plusYears(1));
     }
 
 }

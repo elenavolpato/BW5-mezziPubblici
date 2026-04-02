@@ -5,6 +5,7 @@ import enumerated.TipoMezzi;
 import enumerated.TipoUtente;
 import enumerated.Periodo;
 
+import exceptions.NotFoundException;
 import jakarta.persistence.*;
 import service.UtenzaService;
 
@@ -82,10 +83,8 @@ public class Application {
             try{
                 System.out.println("possiedi già una tessera? y/n");
                 String risposta = scanner.nextLine();
-                // todo : creare funzione per la verifica della tessera
                 if(risposta.equals("y") || risposta.equals("yes") || risposta.equals("si")){
                     risp = true;
-                    System.out.println("perfetto dammi il tuo numero della tessera...");
                     controlloTessera(puntoScelto);
                 } else if (risposta.equals("n") || risposta.equals("no") ) {
                     risp = true;
@@ -99,6 +98,78 @@ public class Application {
 
     }
     public static void controlloTessera(PuntoDiVendita puntoScelto){
+        TesseraDAO tesseraDAO = new TesseraDAO(em);
+        boolean risp = false;
+        long tesseraId = 0;
+        while(!risp){
+            System.out.println("dammi il tuo numero della tessera...");
+            try{
+                 tesseraId = Long.parseLong(scanner.nextLine());
+                 if(tesseraId<0) throw new IllegalArgumentException("il numero tessera non può essere minore di 0");
+                 if(tesseraDAO.findTesseraById(tesseraId) == null) throw new NotFoundException("");
+                 risp = true;
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Inserire un numero valido.");
+            } catch (IllegalArgumentException | NotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        Tessera found = tesseraDAO.findTesseraById(tesseraId);
+        if(found.getScadenza().isBefore(LocalDate.now())){
+            boolean risp1 = false;
+            while(!risp1){
+                try{
+                    System.out.println("tessera scaduta, vuoi rinnovarla?y/n");
+                    String risposta = scanner.nextLine();
+                    if(risposta.equals("y") || risposta.equals("yes") || risposta.equals("si")){
+                        risp1 = true;
+                        UserDAO userDAO = new UserDAO(em);
+                        UtenzaService service = new UtenzaService(userDAO,tesseraDAO,em);
+                        EntityTransaction transaction = em.getTransaction();
+                        transaction.begin();
+                        service.updateScadenzaTessera(tesseraId);
+                        transaction.commit();
+                        System.out.println("tessera rinnovata con successo");
+                    } else if (risposta.equals("n") || risposta.equals("no") ) {
+                        inizioScanner();
+                        risp1 = true;
+                    } else throw new IllegalArgumentException("risposta non valida, riprova");
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+            }
+
+        }
+        System.out.println("la tessera ha scadenza al : "+ found.getScadenza());
+        boolean risp2 = false;
+        while(!risp2){
+            try{
+                System.out.println("vuoi tornare al menù?y/n");
+                String risposta = scanner.nextLine();
+                if(risposta.equals("y") || risposta.equals("yes") || risposta.equals("si")){
+                    inizioScanner();
+                    risp2 = true;
+                } else if (risposta.equals("n") || risposta.equals("no") ) {
+                    scanner.close();
+                    risp2 = true;
+                } else throw new IllegalArgumentException("risposta non valida, riprova");
+            }
+            catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        String RESET  = "\u001B[0m";
+        String RED    = "\u001B[31m";
+
+        System.out.println(RED+"░░░░░ ░   ░ ░░░░░ ░   ░ ░   ░  ░░░░    ░   ░ "+RESET);
+        System.out.println(RED+"  ░   ░   ░ ░   ░ ░░  ░ ░  ░  ░        ░   ░ "+RESET);
+        System.out.println(RED+"  ░   ░░░░░ ░░░░░ ░ ░ ░ ░░    ░░░░     ░   ░ "+RESET);
+        System.out.println(RED+"  ░   ░   ░ ░   ░ ░  ░░ ░  ░      ░          "+RESET);
+        System.out.println(RED+"  ░   ░   ░ ░   ░ ░   ░ ░   ░ ░░░░     ░   ░ "+RESET);
+
+
     }
     public static void acquisto(PuntoDiVendita puntoScelto){
         boolean risp = false;
@@ -239,9 +310,15 @@ public class Application {
             }
         }
     Periodo periodo = risposta == 1? Periodo.MENSILE : Periodo.SETTIMANALE;
+    TesseraDAO tesseraDAO = new TesseraDAO(em);
     UserDAO userDAO = new UserDAO(em);
-    Tessera tessera = new Tessera(nome,cognome,dataFinale,TipoUtente.USER);
-    userDAO.saveTessera(tessera);
+
+
+    UtenzaService service = new UtenzaService(userDAO,tesseraDAO,em);
+    EntityTransaction transaction = em.getTransaction();
+    transaction.begin();
+    service.registraDatiUtente(nome,cognome,dataFinale,TipoUtente.USER);
+    transaction.commit();
     AcquistoDAO acquistoDAO = new AcquistoDAO(em);
     Abbonamento abbonamento = new Abbonamento(puntoDiVendita,LocalDate.now(),periodo);
     acquistoDAO.save(abbonamento);
@@ -250,8 +327,4 @@ public class Application {
         if(!risposta2.equals("0")) inizioScanner();
         else scanner.close();
     }
-  
-  
-  
-
 }
