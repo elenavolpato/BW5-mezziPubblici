@@ -41,5 +41,11 @@ public List<Mezzo> getAllMezzi(){
         TypedQuery<Mezzo> query = entityManager.createQuery("SELECT m FROM Mezzo m " , Mezzo.class);
         return query.getResultList();
 }
+    public void updateMezzo(Mezzo mezzo) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.merge(mezzo);
+        transaction.commit();
+    }
 
 }
