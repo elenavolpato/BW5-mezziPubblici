@@ -25,7 +25,7 @@ public class Percorrenza {
 
 
     // one to one
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "tratta_id") //FK
     private Tratta tratta;
 

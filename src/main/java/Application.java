@@ -13,14 +13,17 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+
+
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("BW5-mezziPubblici");
     public static Scanner scanner = new Scanner(System.in);
     private static  final  EntityManager em = emf.createEntityManager();
-  
+
+
 public static void main(String[] args){
    
-    EntityManager em = emf.createEntityManager();
+
 
     AcquistoDAO acquistoDAO = new AcquistoDAO(em);
     MezzoDAO mezzoDAO = new MezzoDAO(em);
@@ -32,9 +35,13 @@ public static void main(String[] args){
 
 
     UtenzaService service = new UtenzaService(userDAO,tesseraDAO,em);
-    service.registraDatiUtente("Abdellah","Bazi",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
-    service.registraDatiUtente("Elena","Volpato",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
-
+    EntityTransaction transaction = em.getTransaction();
+    transaction.begin();
+    service.registraDatiUtente("Abdellah","Bazi",LocalDate.now(),TipoUtente.USER);
+    service.registraDatiUtente("Elena","Volpato",LocalDate.now(),TipoUtente.ADMIN);
+    service.updateUser(1L,"Abdellah","Bazzzzzzi",LocalDate.now(),TipoUtente.USER);
+    service.updateScadenzaTessera(1L);
+    transaction.commit();
 
 
     // ---------------------- USER ------------------
