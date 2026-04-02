@@ -7,6 +7,7 @@ import enumerated.Periodo;
 import enumerated.TipoUtente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
 
@@ -23,14 +24,15 @@ public class TesseraDAO {
     }
 
     public void saveTessera(Tessera tessera) {
-        EntityTransaction transaction = entityManager.getTransaction();
         entityManager.persist(tessera);
     }
 
     public void removeTessera(Tessera tessera) {
-        EntityTransaction transaction = entityManager.getTransaction();
         entityManager.remove(tessera);
     }
+
+
+
 
 
 }
