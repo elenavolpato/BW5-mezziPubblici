@@ -30,10 +30,7 @@ public class UserDAO {
         System.out.println("creato user");
     }
     public void saveTessera(Tessera tessera) {
-
-
         entityManager.persist(tessera);
-
         System.out.println("creata tessera");
     }
 
