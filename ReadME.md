@@ -1,5 +1,5 @@
 ### ERD from pgAdmin
-![ERD](images/erd.png)
+![ERD](images/img.png)
 
 ### drawsql 
 ![DRAWSQL](images/draw.png)
