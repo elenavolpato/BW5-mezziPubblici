@@ -1,8 +1,12 @@
 import dao.*;
+import entities.Percorrenza;
+import entities.User;
+import enumerated.Periodo;
 import entities.*;
 import enumerated.TipoMezzi;
 import enumerated.TipoUtente;
 import jakarta.persistence.*;
+import service.UtenzaService;
 
 import java.time.LocalDate;
 
@@ -17,7 +21,13 @@ public static void main(String[] args){
     PercorrenzaDAO percorrenzaDAO = new PercorrenzaDAO(em);
     PuntoDiVenditaDAO pvDAO = new PuntoDiVenditaDAO(em);
     TrattaDAO trattaDAO = new TrattaDAO(em);
+    TesseraDAO tesseraDAO = new TesseraDAO(em);
     UserDAO userDAO = new UserDAO(em);
+
+
+    UtenzaService service = new UtenzaService(userDAO,tesseraDAO,em);
+    service.registraDatiUtente("Abdellah","Bazi",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
+    service.registraDatiUtente("Elena","Volpato",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
 
     // ---------------------- USER ------------------
 

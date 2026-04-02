@@ -10,28 +10,26 @@ import jakarta.persistence.EntityTransaction;
 
 import java.time.LocalDate;
 
-public class UserDAO {
+public class TesseraDAO {
+
     private final EntityManager entityManager;
 
-    public UserDAO(EntityManager entityManager) {
+    public TesseraDAO (EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    public Mezzo findUserById(Long id) {
-        return entityManager.find(Mezzo.class, id);
+    public Tessera findTesseraById(Long id) {
+        return entityManager.find(Tessera.class, id);
     }
 
-    public void saveUser(User user) {
+    public void saveTessera(Tessera tessera) {
         EntityTransaction transaction = entityManager.getTransaction();
-
-        entityManager.persist(user);
-
+        entityManager.persist(tessera);
     }
 
-    public void removeUser(User user) {
+    public void removeTessera(Tessera tessera) {
         EntityTransaction transaction = entityManager.getTransaction();
-        entityManager.remove(user);
-
+        entityManager.remove(tessera);
     }
 
 
