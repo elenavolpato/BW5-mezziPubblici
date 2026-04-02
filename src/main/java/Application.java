@@ -23,23 +23,24 @@ public class Application {
 
 
     public static void main(String[] args){
-        try {
-            DataInitializer initializer = new DataInitializer(em);
+//        try {
+//            DataInitializer initializer = new DataInitializer(em);
+//
+//            System.out.println("Starting database seeding...");
+//            initializer.bootstrapData();
+//            System.out.println("Database is ready!");
+//
+//
+//        } catch (Exception e) {
+//            System.err.println("An error occurred during startup:");
+//            e.printStackTrace();
+//        } finally {
+//            em.close();
+//        }
 
-            System.out.println("Starting database seeding...");
-            initializer.bootstrapData();
-            System.out.println("Database is ready!");
 
-
-        } catch (Exception e) {
-            System.err.println("An error occurred during startup:");
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-
+    inizioScanner();
     emf.close();
-  
     }
     public static void inizioScanner(){
         String RESET  = "\u001B[0m";
@@ -326,4 +327,5 @@ public class Application {
         if(!risposta2.equals("0")) inizioScanner();
         else scanner.close();
     }
+
 }
