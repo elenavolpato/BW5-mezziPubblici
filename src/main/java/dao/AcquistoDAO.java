@@ -31,13 +31,13 @@ public class AcquistoDAO {
         }
     }
 
-    public Acquisto findById(String id){
-        Acquisto found =  em.find(Acquisto.class, UUID.fromString(id));
-        if(found == null) throw new NotFoundException(id);
+    public Acquisto findById(Long id){
+        Acquisto found =  em.find(Acquisto.class, id);
+        if(found == null) throw new NotFoundException(id.toString());
         return found;
     }
 
-    public void deleteAcquistoById(String id) {
+    public void deleteAcquistoById(Long id) {
         Acquisto found = findById(id);
         EntityTransaction t = em.getTransaction();
         t.begin();
