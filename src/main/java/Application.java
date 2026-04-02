@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("BW5-mezziPubblici");
     public static Scanner scanner = new Scanner(System.in);
-    private static final EntityManager em = emf.createEntityManager();
+    private static  final  EntityManager em = emf.createEntityManager();
 
 
     public static void main(String[] args){
@@ -39,9 +39,8 @@ public class Application {
         }
 
     emf.close();
-    inizioScanner();
+  
     }
-
     public static void inizioScanner(){
         String RESET  = "\u001B[0m";
         String YELLOW = "\u001B[33m";
