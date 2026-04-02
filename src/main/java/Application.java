@@ -39,12 +39,12 @@ public static void main(String[] args){
 
     // ---------------------- USER ------------------
 
-    User u1 = new User("Nome", "Cognome", LocalDate.of(2002, 03, 12), TipoUtente.USER);
-    User u2 = new User("Mario", "Rossi", LocalDate.of(1985, 7, 22), TipoUtente.USER);
-    User u3 = new User("Elena", "Bianchi", LocalDate.of(1998, 11, 5), TipoUtente.ADMIN);
-    User u4 = new User("Luca", "Verdi", LocalDate.of(2005, 1, 30), TipoUtente.USER);
-    userDAO.saveUser(u2); userDAO.saveUser(u3); userDAO.saveUser(u4);
-    userDAO.saveUser(u1);
+//    User u1 = new User("Nome", "Cognome", LocalDate.of(2002, 03, 12), TipoUtente.USER);
+//    User u2 = new User("Mario", "Rossi", LocalDate.of(1985, 7, 22), TipoUtente.USER);
+//    User u3 = new User("Elena", "Bianchi", LocalDate.of(1998, 11, 5), TipoUtente.ADMIN);
+//    User u4 = new User("Luca", "Verdi", LocalDate.of(2005, 1, 30), TipoUtente.USER);
+//    userDAO.saveUser(u2); userDAO.saveUser(u3); userDAO.saveUser(u4);
+//    userDAO.saveUser(u1);
 
 
 
