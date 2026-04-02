@@ -30,7 +30,7 @@ public static void main(String[] args){
     TrattaDAO trattaDAO = new TrattaDAO(em);
     TesseraDAO tesseraDAO = new TesseraDAO(em);
     UserDAO userDAO = new UserDAO(em);
-    
+
 
     UtenzaService service = new UtenzaService(userDAO,tesseraDAO,em);
     service.registraDatiUtente("Abdellah","Bazi",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
@@ -65,8 +65,8 @@ public static void main(String[] args){
 
     DistributoreAutomatico pv1 = new DistributoreAutomatico("via Roma, 2", true);
     DistributoreAutomatico pv2 = new DistributoreAutomatico("Piazza Duomo", true);
-    Rivenditore pv3 = new Rivenditore("Tabaccheria Rossi", "Corso Buenos Aires 15");
-    DistributoreAutomatico pv4 = new DistributoreAutomatico("Stazione Garibaldi - Binario 4", false); // Fuori servizio
+    Rivenditore pv3 = new Rivenditore("Corso Buenos Aires 15","Tabaccheria Rossi");
+    Rivenditore pv4 = new Rivenditore("Corso Giolotti, 45", "Tabaccheria Giolotti");
     pvDAO.save(pv2); pvDAO.save(pv3); pvDAO.save(pv4);
     pvDAO.save(pv1);
     //PuntoDiVendita foundPv1 = pvDAO.findById("768d306e-9a65-4f6a-bac4-6ea4d9f800bd");
@@ -110,9 +110,6 @@ public static void main(String[] args){
     percorrenzaDAO.savePercorrenza(p2); percorrenzaDAO.savePercorrenza(p3); percorrenzaDAO.savePercorrenza(p4);
     percorrenzaDAO.savePercorrenza(p1);
 
-    em.close();
-    emf.close();
-}
     em.close();
     emf.close();
   
