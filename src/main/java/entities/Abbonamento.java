@@ -13,16 +13,22 @@ public class Abbonamento extends Acquisto {
     @Enumerated(EnumType.STRING)
     private Periodo periodo;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tessera")
+    private Tessera tessera;
+
     public Abbonamento() {
         super();
     }
 
-    public Abbonamento(PuntoDiVendita puntoDiVendita, LocalDate dataEmissione,Periodo periodo) {
+    public Abbonamento(PuntoDiVendita puntoDiVendita, LocalDate dataEmissione, Periodo periodo) {
         super(puntoDiVendita, dataEmissione);
         this.periodo = periodo;
+        // Tessera is left null here, to be set later via setter
     }
 
-    // TODO prendi la id della tessera
+    public void setTessera(Tessera tessera) {        this.tessera = tessera;    }
+    public Tessera getTessera() {        return tessera;    }
 
     public Periodo getPeriodo() {        return periodo;    }
     public void setPeriodo(Periodo periodo) {        this.periodo = periodo;    }
@@ -34,7 +40,6 @@ public class Abbonamento extends Acquisto {
                ", location=" + getPuntoDiVendita() +
                ", emesso=" + getDataEmissione() +
                ", periodo=" + periodo +
-//                ", tessera=" + id tessera +
                 '}';
     }
 }

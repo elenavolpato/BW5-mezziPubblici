@@ -1,12 +1,13 @@
 package dao;
 
-import entities.Abbonamento;
-import entities.Acquisto;
-import entities.Biglietto;
-import entities.PuntoDiVendita;
+import entities.*;
+import enumerated.Periodo;
+import enumerated.TipoUtente;
 import exceptions.NotFoundException;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class AcquistoDAO {
@@ -36,6 +37,32 @@ public class AcquistoDAO {
         if(found == null) throw new NotFoundException(id.toString());
         return found;
     }
+
+    public List<Abbonamento> listAllAbbonamentiByUser(Long userId) {
+        TypedQuery<Abbonamento> query = em.createQuery(
+                "SELECT a FROM Abbonamento a WHERE a.tessera.id = :id",
+                Abbonamento.class
+        );
+        query.setParameter("id", userId);
+        return query.getResultList();
+    }
+
+
+    public void acquistaAbbonamentoUserWithTessera(Long userId, Periodo periodo, PuntoDiVendita pv) {
+        User user = em.find(User.class, userId);
+        Tessera userTessera = user.getTessera();
+
+        if (userTessera == null) {
+            System.out.println("Error: User does not have a valid card!");
+            return;
+        }
+
+        Abbonamento nuovoAbbonamento = new Abbonamento(pv, LocalDate.now(), periodo);
+        nuovoAbbonamento.setTessera(userTessera);
+
+        em.persist(nuovoAbbonamento);
+    }
+
 
     public void deleteAcquistoById(Long id) {
         Acquisto found = findById(id);
