@@ -1,9 +1,13 @@
 import dao.*;
+import entities.Percorrenza;
+import entities.User;
+import enumerated.Periodo;
 import entities.*;
 import enumerated.Periodo;
 import enumerated.TipoMezzi;
 import enumerated.TipoUtente;
 import jakarta.persistence.*;
+import service.UtenzaService;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -14,10 +18,96 @@ public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("BW5-mezziPubblici");
     public static Scanner scanner = new Scanner(System.in);
     private static  final  EntityManager em = emf.createEntityManager();
+  
 public static void main(String[] args){
-    inizioScanner();
+   
+    EntityManager em = emf.createEntityManager();
+
+    AcquistoDAO acquistoDAO = new AcquistoDAO(em);
+    MezzoDAO mezzoDAO = new MezzoDAO(em);
+    PercorrenzaDAO percorrenzaDAO = new PercorrenzaDAO(em);
+    PuntoDiVenditaDAO pvDAO = new PuntoDiVenditaDAO(em);
+    TrattaDAO trattaDAO = new TrattaDAO(em);
+    TesseraDAO tesseraDAO = new TesseraDAO(em);
+    UserDAO userDAO = new UserDAO(em);
+
+
+    UtenzaService service = new UtenzaService(userDAO,tesseraDAO,em);
+    service.registraDatiUtente("Abdellah","Bazi",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
+    service.registraDatiUtente("Elena","Volpato",LocalDate.now(),TipoUtente.USER,Periodo.MENSILE);
+
+    // ---------------------- USER ------------------
+
+    User u1 = new User("Nome", "Cognome", LocalDate.of(2002, 03, 12), TipoUtente.USER);
+    User u2 = new User("Mario", "Rossi", LocalDate.of(1985, 7, 22), TipoUtente.USER);
+    User u3 = new User("Elena", "Bianchi", LocalDate.of(1998, 11, 5), TipoUtente.ADMIN);
+    User u4 = new User("Luca", "Verdi", LocalDate.of(2005, 1, 30), TipoUtente.USER);
+    userDAO.saveUser(u2); userDAO.saveUser(u3); userDAO.saveUser(u4);
+    userDAO.saveUser(u1);
+
+
+    // ------------------------- TRATTA -----------------------------
+
+    Tratta t1 = new Tratta("centro milano", "F89", 60);
+    Tratta t2 = new Tratta("Milano Centrale - Malpensa", "MXP1", 50);
+    Tratta t3 = new Tratta("Roma Termini - Trastevere", "RM03", 15);
+    Tratta t4 = new Tratta("Napoli Garibaldi - Sorrento", "CIRC1", 70);
+    trattaDAO.saveTratta(t2); trattaDAO.saveTratta(t3); trattaDAO.saveTratta(t4);
+    trattaDAO.saveTratta(t1);
+
+    //Tratta foundT1 = trattaDAO.cercaTrattaPerId("3f68ae38-a8d5-4b87-8008-15c555e83d2c");
+    //Tratta foundT2 = trattaDAO.cercaTrattaPerId("a1b2c3d4-e5f6-4g7h-8i9j-0k1l2m3n4o5p");
+    //Tratta foundT3 = trattaDAO.cercaTrattaPerId("b2c3d4e5-f6g7-h8i9-j0k1-l2m3n4o5p6q");
+    //Tratta foundT4 = trattaDAO.cercaTrattaPerId("c3d4e5f6-g7h8-i9j0-k1l2-m3n4o5p6q7r");
+
+
+    // ------------------------- PUNTO DI VENDITA --------------------------
+
+    DistributoreAutomatico pv1 = new DistributoreAutomatico("via Roma, 2", true);
+    DistributoreAutomatico pv2 = new DistributoreAutomatico("Piazza Duomo", true);
+    Rivenditore pv3 = new Rivenditore("Corso Buenos Aires 15", "Tabaccheria Rossi");
+    Rivenditore pv4 = new Rivenditore("Corso Giolotti, 45", "Tabaccheria Giolotti");
+     pvDAO.save(pv2); pvDAO.save(pv3); pvDAO.save(pv4);
+    pvDAO.save(pv1);
+    //PuntoDiVendita foundPv1 = pvDAO.findById("768d306e-9a65-4f6a-bac4-6ea4d9f800bd");
+
+
+    // ----------------------------------- ACQUISTO ---------------------------------
+
+    Biglietto b1 = new Biglietto(pv1,LocalDate.of(2025, 12,18));
+    Biglietto b2 = new Biglietto(pv2, LocalDate.of(2025, 5, 10));
+    Biglietto b3 = new Biglietto(pv1, LocalDate.now());
+    Biglietto b4 = new Biglietto(pv4, LocalDate.of(2026, 01, 15));
+     acquistoDAO.save(b2); acquistoDAO.save(b3); acquistoDAO.save(b4);
+    acquistoDAO.save(b1);
+    //Acquisto foundB1 = acquistoDAO.findById(1L);
+
+    Abbonamento a1 = new Abbonamento(pv1, LocalDate.of(2025, 10,5));
+    Abbonamento a2 = new Abbonamento(pv4, LocalDate.of(2026,1,1));
+    Abbonamento a3 = new Abbonamento(pv3, LocalDate.of(2026, 2, 10));
+    Abbonamento a4 = new Abbonamento(pv2, LocalDate.of(2026,3,9));
+
+    acquistoDAO.save(a1);acquistoDAO.save(a2);acquistoDAO.save(a3); acquistoDAO.save(a4);
+  
+  
+
+
+    // ----------------------------------- MEZZO ------------------------------
+
+    Mezzo m1 = new Mezzo(52, TipoMezzi.AUTOBUS, true, t1, b2);
+    Mezzo m2 = new Mezzo(150, TipoMezzi.TRAM, true, t2, b1);
+    Mezzo m3 = new Mezzo(80, TipoMezzi.AUTOBUS, false, t3, b4); // In manutenzione
+    Mezzo m4 = new Mezzo(200, TipoMezzi.TRAM, true, t3, b3);
+     mezzoDAO.saveMezzo(m2); mezzoDAO.saveMezzo(m3); mezzoDAO.saveMezzo(m4);
+
+    //Mezzo foundM2 = mezzoDAO.findMezzoById(2L);
+    //Mezzo foundM3 = mezzoDAO.findMezzoById(3L);
+    mezzoDAO.saveMezzo(m1);
+    //Mezzo foundM1 = mezzoDAO.findMezzoById(1L);
+
     em.close();
     emf.close();
+  
     }
     public static void inizioScanner(){
         String RESET  = "\u001B[0m";
@@ -52,6 +142,10 @@ public static void main(String[] args){
         System.out.println("hai scelto : "+list.get(risposta-1));
         PuntoDiVendita puntoScelto = list.get(risposta-1);
         richiestaTessera(puntoScelto);
+      
+      
+
+
 
     }
     public static void richiestaTessera(PuntoDiVendita puntoScelto){
@@ -228,5 +322,8 @@ public static void main(String[] args){
         if(!risposta2.equals("0")) inizioScanner();
         else scanner.close();
     }
+  
+  
+  
 
 }
