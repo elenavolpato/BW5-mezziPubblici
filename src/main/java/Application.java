@@ -19,30 +19,29 @@ import java.util.Scanner;
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("BW5-mezziPubblici");
     public static Scanner scanner = new Scanner(System.in);
-    private static  final  EntityManager em = emf.createEntityManager();
+    private static final EntityManager em = emf.createEntityManager();
 
 
-public static void main(String[] args){
-   
+    public static void main(String[] args){
+        try {
+            DataInitializer initializer = new DataInitializer(em);
+
+            System.out.println("Starting database seeding...");
+            initializer.bootstrapData();
+            System.out.println("Database is ready!");
 
 
-    AcquistoDAO acquistoDAO = new AcquistoDAO(em);
-    MezzoDAO mezzoDAO = new MezzoDAO(em);
-    PercorrenzaDAO percorrenzaDAO = new PercorrenzaDAO(em);
-    PuntoDiVenditaDAO pvDAO = new PuntoDiVenditaDAO(em);
-    TrattaDAO trattaDAO = new TrattaDAO(em);
-    UserDAO userDAO = new UserDAO(em);
-    /*DistributoreAutomatico pv1 = new DistributoreAutomatico("via Roma, 2", true);
-    DistributoreAutomatico pv2 = new DistributoreAutomatico("Piazza Duomo", true);
-    Rivenditore pv3 = new Rivenditore("Corso Buenos Aires 15", "Tabaccheria Rossi");
-    Rivenditore pv4 = new Rivenditore("Corso Giolotti, 45", "Tabaccheria Giolotti");
-    pvDAO.save(pv2); pvDAO.save(pv3); pvDAO.save(pv4);
-    pvDAO.save(pv1);*/
-    inizioScanner();
-    em.close();
+        } catch (Exception e) {
+            System.err.println("An error occurred during startup:");
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
     emf.close();
-  
+    inizioScanner();
     }
+
     public static void inizioScanner(){
         String RESET  = "\u001B[0m";
         String YELLOW = "\u001B[33m";
