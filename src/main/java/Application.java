@@ -124,9 +124,10 @@ public static void main(String[] args){
     percorrenzaDAO.savePercorrenza(p2); percorrenzaDAO.savePercorrenza(p3); percorrenzaDAO.savePercorrenza(p4);
     percorrenzaDAO.savePercorrenza(p1);
 
+
+    scannerAmministratore();
     em.close();
     emf.close();
-  
     }
     public static void inizioScanner(){
         String RESET  = "\u001B[0m";
@@ -339,6 +340,129 @@ public static void main(String[] args){
     }
   
   
-  
+
+    public static void scannerAmministratore(){
+
+
+    int risp = 0;
+    boolean ciclo = true;
+    MezzoDAO md = new MezzoDAO(em);
+    StatoMezzoDAO statoMezzoDAO = new StatoMezzoDAO(em);
+    List<Mezzo> listaMezzi = md.getAllMezzi();
+    while (ciclo){
+
+
+        System.out.println(" Ciao, che cosa vuoi verificare?");
+        System.out.println(" 1-mezzi \n 2-punti vendita \n 3-abbonamenti");
+        try{
+        risp = Integer.parseInt(scanner.nextLine());
+        if (risp == 1){
+            boolean whileMezzo = true;
+            while(whileMezzo){
+
+            System.out.println("di quale di questi mezzi vuoi avere piu informazioni? /n digita '0' se vuoi tornare indietro");
+            int numero = 1;
+            for (int i = 0; i < listaMezzi.size() ; i++ ){
+                System.out.println(numero + "-" + listaMezzi.get(i));
+                numero++;
+            }
+            risp = Integer.parseInt(scanner.nextLine());
+            if (risp >= 1 && risp <= listaMezzi.size()){
+                boolean whileListaMezzi = true;
+                while (whileListaMezzi){
+                    Mezzo mezzoScelto = listaMezzi.get(risp - 1);
+                System.out.println(mezzoScelto);
+                System.out.println("cosa vuoi vedere ora?");
+                System.out.println("1-lo stato \n2-informazioni sulla tratta \n0-indietro ");
+                risp = Integer.parseInt(scanner.nextLine());
+
+                switch (risp){
+                    case 1:
+                        if (mezzoScelto.getInServizio().equals(true)){
+                            System.out.println("il mezzo con id " + mezzoScelto.getId() + " è attualmente in servizio vuoi cambiare il suo stato?");
+                            System.out.println("1-si \n2-no");
+                            risp = Integer.parseInt(scanner.nextLine());
+                            if (risp == 1){
+                                System.out.println("inserisci il motivo");
+                                String motivo = scanner.nextLine();
+                                System.out.println("inserisci la data di inizio (es-> 2002-04-02)");
+                                String dataInizioString = scanner.nextLine();
+                                LocalDate dataInizio = LocalDate.parse(dataInizioString);
+                                System.out.println("inserisci la data di fine (es-> 2002-04-02)");
+                                String dataFineString = scanner.nextLine();
+                                LocalDate dataFine = LocalDate.parse(dataFineString);
+                                StatoMezzo statoMezzo = new StatoMezzo(motivo, dataInizio,dataFine,mezzoScelto);
+                                statoMezzoDAO.saveStatoMezzo(statoMezzo);
+                                mezzoScelto.setInServizio(false);
+                                System.out.println("il mezzo con id " + mezzoScelto.getId() + " non è piu in servizio");
+                            }
+                        } else if (mezzoScelto.getInServizio().equals(false)) {
+                            System.out.println("il mezzo con id " + mezzoScelto.getId() + " è attualmente in manutenzione");
+                            System.out.println("ecco il perche:");
+                            statoMezzoDAO.statoMezzoInfo(mezzoScelto.getId());
+                            System.out.println("vuoi farlo tornare servizio in questo momento?");
+                            System.out.println("1-si \n2-no");
+                            risp = Integer.parseInt(scanner.nextLine());
+                            if (risp == 1){
+                                mezzoScelto.setInServizio(true);
+                                System.out.println("il mezzo con id " + mezzoScelto.getId() + " è attualmente in manutenzione");
+                            }
+
+
+                        }else {
+                            System.out.println("non ce nessun opzione con quello che hai digitato");
+                        }
+                        break;
+                    case 2:
+                        break;
+                    case 0:
+                        whileListaMezzi = false;
+                        break;
+                    default:
+                        System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+                        break;
+                }
+
+//                if (risp == 1){
+//
+//
+//                } else if (risp == 2) {
+//
+//                } else if (risp == 0) {
+//                    whileListaMezzi = false;
+//
+//                } else {
+//                    System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+//                }
+
+                }
+
+            } else if (risp == 0) {
+                whileMezzo = false;
+
+            } else {
+                System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+            }
+
+            }
+
+
+
+
+        } else if (risp == 2) {
+
+        } else if (risp == 3) {
+
+        }else {
+            System.out.println("!!! INSERISCI UNO DI QUESTI NUMERI !!!");
+        }
+
+        } catch (NumberFormatException e) {
+            System.out.println("!!! NON PUOI INSERIRE ALTRI CARATTERI, SOLO I NUMERI ELENCATI !!!");
+        }
+
+
+    }
+    };
 
 }

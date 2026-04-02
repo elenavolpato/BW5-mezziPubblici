@@ -24,7 +24,7 @@ public class UserDAO {
 
     public void saveUser(User user) {
         EntityTransaction transaction = entityManager.getTransaction();
-
+        transaction.begin();
         entityManager.persist(user);
         transaction.commit();
         System.out.println("creato user");
