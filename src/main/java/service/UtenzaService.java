@@ -23,29 +23,31 @@ public class UtenzaService {
         this.entityManager = entityManager;
     }
 
-    public void registraDatiUtente(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente, Periodo periodo){
+    public void registraDatiUtente(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente, Periodo periodo) {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        User user = new User(nome,cognome,dataDiNascita,tipoUtente);
+        User user = new User(nome, cognome, dataDiNascita, tipoUtente);
 
 
+        Tessera newTessera = null;
 
-        Tessera newTessera = new Tessera(nome,cognome,dataDiNascita,tipoUtente,LocalDate.now());
-        System.out.println(newTessera);
-        switch(periodo) {
-            case MENSILE:
-                newTessera.setScadenza(LocalDate.now().plusMonths(1));
+        switch (tipoUtente) {
+            case USER:
+                newTessera = new Tessera(nome, cognome, dataDiNascita, tipoUtente);
+                newTessera.setScadenza(LocalDate.now().plusYears(1));
+                tesseraDAO.saveTessera(newTessera);
+                transaction.commit();
+
                 break;
-            case SETTIMANALE:
-                newTessera.setScadenza(LocalDate.now().plusDays(7));
+            case ADMIN:
+
                 break;
             default:
                 System.out.println("scelta non valida");
         }
 
-        tesseraDAO.saveTessera(newTessera);
-        transaction.commit();
+
 
     }
 }

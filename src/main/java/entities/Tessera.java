@@ -20,6 +20,7 @@ public class Tessera extends User {
     }
 
 
+
     public LocalDate getScadenza() {
         return scadenza;
     }
