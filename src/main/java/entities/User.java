@@ -9,6 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "Utente")
 @Inheritance(strategy = InheritanceType.JOINED)
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Tessera tessera;
 
-    public User() {
-    }
+    public User() {    }
 
     public User(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
         this.nome = nome;
