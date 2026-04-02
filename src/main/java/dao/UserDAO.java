@@ -2,6 +2,7 @@ package dao;
 
 import entities.Mezzo;
 import entities.Tessera;
+import entities.Tratta;
 import entities.User;
 import enumerated.Periodo;
 import enumerated.TipoUtente;
@@ -25,7 +26,15 @@ public class UserDAO {
         EntityTransaction transaction = entityManager.getTransaction();
 
         entityManager.persist(user);
-
+        transaction.commit();
+        System.out.println("creato user");
+    }
+    public void saveTessera(Tessera tessera) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(tessera);
+        transaction.commit();
+        System.out.println("creata tessera");
     }
 
     public void removeUser(User user) {

@@ -25,10 +25,8 @@ public class Rivenditore extends PuntoDiVendita{
 
     @Override
     public String toString() {
-        return "Rivenditore{" +
-                "nome='" + nome + '\'' +
-                "indirizzo='" + super.getIndirizzo() + '\'' +
-                "id='" + super.getId() + '\'' +
-                '}';
+        return "Rivenditore di " + nome + '\'' +
+                " con indirizzo = " + super.getIndirizzo()  +
+                " e id = " + super.getId() ;
     }
 }
