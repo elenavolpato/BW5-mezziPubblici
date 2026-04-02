@@ -21,10 +21,8 @@ public class DistributoreAutomatico extends PuntoDiVendita{
 
     @Override
     public String toString() {
-        return "DistributoreAutomatico{" +
-                "attivo=" + attivo +
-                " indirizzo='" + super.getIndirizzo() + '\'' +
-                "id='" + super.getId() + '\'' +
-                '}';
+        return "DistributoreAutomatico" +
+                " con indirizzo " + super.getIndirizzo()  +
+                " e id " + super.getId();
     }
 }

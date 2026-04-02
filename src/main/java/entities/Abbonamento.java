@@ -10,14 +10,14 @@ import java.time.LocalDate;
 
 
 public class Abbonamento extends Acquisto {
-
+    @Enumerated(EnumType.STRING)
     private Periodo periodo;
 
     public Abbonamento() {
         super();
     }
 
-    public Abbonamento(PuntoDiVendita puntoDiVendita, LocalDate dataEmissione) {
+    public Abbonamento(PuntoDiVendita puntoDiVendita, LocalDate dataEmissione,Periodo periodo) {
         super(puntoDiVendita, dataEmissione);
         this.periodo = periodo;
     }
