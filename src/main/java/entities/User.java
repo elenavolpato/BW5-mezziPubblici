@@ -4,6 +4,7 @@ import enumerated.TipoUtente;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Utente")
@@ -13,8 +14,8 @@ public class User {
     public User() {
     }
 
-    public User( String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
-                this.nome = nome;
+    public User(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
+        this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
         this.tipoUtente = tipoUtente;
@@ -39,15 +40,11 @@ public class User {
     public Long getId() {
         return id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {        this.id = id;    }
 
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -55,7 +52,6 @@ public class User {
     public String getCognome() {
         return cognome;
     }
-
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
@@ -63,7 +59,6 @@ public class User {
     public LocalDate getDataDiNascita() {
         return dataDiNascita;
     }
-
     public void setDataDiNascita(LocalDate dataDiNascita) {
         this.dataDiNascita = dataDiNascita;
     }
@@ -71,7 +66,6 @@ public class User {
     public TipoUtente getTipoUtente() {
         return tipoUtente;
     }
-
     public void setTipoUtente(TipoUtente tipoUtente) {
         this.tipoUtente = tipoUtente;
     }

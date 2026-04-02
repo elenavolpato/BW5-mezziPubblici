@@ -15,11 +15,8 @@ public class TrattaDAO {
     public void saveTratta(Tratta newTratta){
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-
         em.persist(newTratta);
-
         transaction.commit();
-
         System.out.println("la tratta con id " + newTratta.getId() + " è stata salvata");
     }
 

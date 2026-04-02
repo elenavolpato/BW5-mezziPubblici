@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Table(name="abbonamenti")
 @PrimaryKeyJoinColumn(name = "id_acquisto")
 
+
 public class Abbonamento extends Acquisto {
 
     private Periodo periodo;
@@ -21,6 +22,8 @@ public class Abbonamento extends Acquisto {
         this.periodo = periodo;
     }
 
+    // TODO prendi la id della tessera
+
     public Periodo getPeriodo() {        return periodo;    }
     public void setPeriodo(Periodo periodo) {        this.periodo = periodo;    }
 
@@ -31,6 +34,7 @@ public class Abbonamento extends Acquisto {
                ", location=" + getPuntoDiVendita() +
                ", emesso=" + getDataEmissione() +
                ", periodo=" + periodo +
+//                ", tessera=" + id tessera +
                 '}';
     }
 }
