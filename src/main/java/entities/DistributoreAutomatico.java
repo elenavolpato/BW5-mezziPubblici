@@ -19,10 +19,23 @@ public class DistributoreAutomatico extends PuntoDiVendita{
         return attivo;
     }
 
+    public void setAttivo(boolean attivo) {
+        this.attivo = attivo;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "DistributoreAutomatico" +
+//                " con indirizzo " + super.getIndirizzo()  +
+//                " e id " + super.getId() +
+//                "";
+//    }
+
     @Override
     public String toString() {
         return "DistributoreAutomatico" +
                 " con indirizzo " + super.getIndirizzo()  +
-                " e id " + super.getId();
+                " e id " + super.getId() +
+                " attivo: " + (attivo ? "SI" : "NO");
     }
 }
