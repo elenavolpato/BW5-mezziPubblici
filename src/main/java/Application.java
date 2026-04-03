@@ -387,6 +387,7 @@ public class Application {
                     Mezzo newMezzo = new Mezzo(capienza,tipo,isAttivo, null, null);
                     MezzoDAO mezzoDao = new MezzoDAO(em);
                     mezzoDao.saveMezzo(newMezzo);
+                    listaMezzi.add(newMezzo);
 
                     System.out.println("Mezzo aggiunto!");
 
