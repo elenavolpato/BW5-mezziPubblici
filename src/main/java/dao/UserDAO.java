@@ -8,8 +8,10 @@ import enumerated.Periodo;
 import enumerated.TipoUtente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class UserDAO {
     private final EntityManager entityManager;
@@ -41,6 +43,13 @@ public class UserDAO {
         EntityTransaction transaction = entityManager.getTransaction();
         entityManager.remove(user);
 
+    }
+    public List<User> getAllUsers() {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u",
+                User.class
+        );
+        return query.getResultList();
     }
 
 

@@ -1,8 +1,15 @@
 package dao;
 
+import entities.DistributoreAutomatico;
 import entities.Mezzo;
+import entities.PuntoDiVendita;
+import entities.Rivenditore;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 public class MezzoDAO {
     private final EntityManager entityManager;
@@ -30,4 +37,15 @@ public class MezzoDAO {
         entityManager.remove(mezzo);
         transaction.commit();
     }
+public List<Mezzo> getAllMezzi(){
+        TypedQuery<Mezzo> query = entityManager.createQuery("SELECT m FROM Mezzo m " , Mezzo.class);
+        return query.getResultList();
+}
+    public void updateMezzo(Mezzo mezzo) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.merge(mezzo);
+        transaction.commit();
+    }
+
 }

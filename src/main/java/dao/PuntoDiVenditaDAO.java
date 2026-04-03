@@ -43,4 +43,21 @@ public class PuntoDiVenditaDAO {
         ts.commit();
         System.out.println("punto di vendita con indirizzo " +found.getIndirizzo()+ " rimosso al database");
     }
+
+    public List<PuntoDiVendita> getAllPuntiVendita() {
+        TypedQuery<PuntoDiVendita> query = em.createQuery(
+                "SELECT p FROM PuntoDiVendita p",
+                PuntoDiVendita.class
+        );
+        return query.getResultList();
+    }
+
+    public void updatePuntoDiVendita(PuntoDiVendita puntoDiVendita) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.merge(puntoDiVendita);
+        transaction.commit();
+        System.out.println("Punto vendita aggiornato.");
+    }
+
 }

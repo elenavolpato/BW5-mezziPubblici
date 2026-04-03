@@ -22,6 +22,11 @@ public abstract class PuntoDiVendita {
         this.indirizzo = indirizzo;
     }
 
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+
     public Long getId() {
         return id;
     }

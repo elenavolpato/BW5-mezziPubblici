@@ -11,6 +11,7 @@ import service.UtenzaService;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -327,5 +328,281 @@ public class Application {
         if(!risposta2.equals("0")) inizioScanner();
         else scanner.close();
     }
+  
+  
+
+    public static void scannerAmministratore(){
+
+
+    int risp = 0;
+    boolean ciclo = true;
+    MezzoDAO md = new MezzoDAO(em);
+    StatoMezzoDAO statoMezzoDAO = new StatoMezzoDAO(em);
+    PercorrenzaDAO percorrenzaDAO = new PercorrenzaDAO(em);
+    List<Mezzo> listaMezzi = md.getAllMezzi();
+    while (ciclo){
+
+
+        System.out.println("Ciao, che cosa vuoi verificare?");
+        System.out.println("1-mezzi \n2-punti vendita \n3-utenti \n0-esci");
+        try{
+        risp = Integer.parseInt(scanner.nextLine());
+        if (risp == 1){
+            boolean whileMezzo = true;
+            while(whileMezzo){
+                System.out.println("che cosa vuoi fare? \n1-crea mezzo \n2-visualizza mezzi \n0-indietro");
+                risp = Integer.parseInt(scanner.nextLine());
+                if (risp == 1){
+
+
+                    // per la creazione
+
+                    System.out.println("per creare mezzoooooooooooooooooooooooooooooooo");
+
+
+                } else if (risp == 2) {
+
+                System.out.println("di quale di questi mezzi vuoi avere piu informazioni? \n0-indietro");
+            int numero = 1;
+            for (int i = 0; i < listaMezzi.size() ; i++ ){
+                System.out.println(numero + "-" + listaMezzi.get(i));
+                numero++;
+            }
+            risp = Integer.parseInt(scanner.nextLine());
+            if (risp >= 1 && risp <= listaMezzi.size()){
+                    Mezzo mezzoScelto = listaMezzi.get(risp - 1);
+                boolean whileListaMezzi = true;
+                while (whileListaMezzi){
+                System.out.println(mezzoScelto);
+                System.out.println("cosa vuoi vedere ora?");
+                System.out.println("1-lo stato \n2-informazioni sulla tratta \n0-indietro ");
+                risp = Integer.parseInt(scanner.nextLine());
+
+                switch (risp){
+                    case 1:
+                        if (mezzoScelto.getInServizio().equals(true)){
+                            System.out.println("il mezzo con id " + mezzoScelto.getId() + " è attualmente in servizio vuoi cambiare il suo stato?");
+                            System.out.println("1-si \n2-no");
+                            risp = Integer.parseInt(scanner.nextLine());
+                            if (risp == 1){
+                                System.out.println("inserisci il motivo");
+                                String motivo = scanner.nextLine();
+                                try{
+
+                                System.out.println("inserisci la data di inizio (es-> 2002-04-02)");
+                                String dataInizioString = scanner.nextLine();
+                                LocalDate dataInizio = LocalDate.parse(dataInizioString);
+                                System.out.println("inserisci la data di fine (es-> 2002-04-02)");
+                                String dataFineString = scanner.nextLine();
+                                LocalDate dataFine = LocalDate.parse(dataFineString);
+
+                                if (dataFine.isBefore(dataInizio)){
+                                    System.out.println("!!! LA DATA DI FINE NON PUO ESSERE PRIMA DELLA DATA DI INIZIO");
+                                }else {
+
+                                StatoMezzo statoMezzo = new StatoMezzo(motivo, dataInizio,dataFine,mezzoScelto);
+                                statoMezzoDAO.saveStatoMezzo(statoMezzo);
+                                mezzoScelto.setInServizio(false);
+                                md.updateMezzo(mezzoScelto);
+                                System.out.println("il mezzo con id " + mezzoScelto.getId() + " non è piu in servizio");
+                                }
+                                } catch (DateTimeParseException e) {
+                                    System.out.println("!!! FORMATO DATA NON VALIDO. USA YYYY-MM-DD !!!");
+                                }
+                            }
+                        } else if (mezzoScelto.getInServizio().equals(false)) {
+                            System.out.println("il mezzo con id " + mezzoScelto.getId() + " è attualmente in manutenzione");
+                            System.out.println("ecco il perche:");
+                            statoMezzoDAO.statoMezzoInfoByMezzoId(mezzoScelto.getId());
+                            System.out.println("vuoi farlo tornare servizio in questo momento?");
+                            System.out.println("1-si \n2-no");
+                            risp = Integer.parseInt(scanner.nextLine());
+                            if (risp == 1){
+                                mezzoScelto.setInServizio(true);
+                                md.updateMezzo(mezzoScelto);
+                                System.out.println("il mezzo con id " + mezzoScelto.getId() + " è tornato in servizio");
+                            }
+
+
+                        }else {
+                            System.out.println("non ce nessun opzione con quello che hai digitato");
+                        }
+                        break;
+                    case 2:
+                        System.out.println("ecco le informazioni sui percorsi: ");
+                        List<Percorrenza> percorrenze =
+                                percorrenzaDAO.percorrenzeInfoByMezzo(mezzoScelto.getId());
+
+                        for (Percorrenza p : percorrenze) {
+                            System.out.println(p);
+                        }
+                        System.out.println("vuoi sapere anche il tempo medio per tratta?");
+                        System.out.println("1-si \n2-no");
+                        risp = Integer.parseInt(scanner.nextLine());
+                        if (risp == 1){
+                            System.out.println("\n\ntempo medio : " + percorrenzaDAO.calcolaMediaTempoPerMezzo(mezzoScelto.getId()) + "min \n \n ");
+
+                        }
+
+                        break;
+                    case 0:
+                        whileListaMezzi = false;
+                        break;
+                    default:
+                        System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+                        break;
+                }
+
+                }
+
+            }  else if (risp == 0) {
+                whileMezzo = false;
+
+            } else {
+                System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+            }
+
+                } else if (risp == 0 ) {
+                    whileMezzo = false;
+                }else {
+                    System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+                }
+
+            }
+
+        } else if (risp == 2) {
+            PuntoDiVenditaDAO pvDAO = new PuntoDiVenditaDAO(em);
+
+            boolean whilePuntiVendita = true;
+            while (whilePuntiVendita) {
+            List<PuntoDiVendita> listaPuntiVendita = pvDAO.getAllPuntiVendita();
+
+                System.out.println("di quale di questi punti vendita vuoi avere più informazioni? \n0-indietro");
+
+                int numero = 1;
+                for (int i = 0; i < listaPuntiVendita.size(); i++) {
+                    System.out.println(numero + " - " + listaPuntiVendita.get(i));
+                    numero++;
+                }
+
+                risp = Integer.parseInt(scanner.nextLine());
+
+                if (risp >= 1 && risp <= listaPuntiVendita.size()) {
+                    PuntoDiVendita puntoVenditaScelto = listaPuntiVendita.get(risp - 1);
+                    boolean whileListaPuntiVendita = true;
+
+                    while (whileListaPuntiVendita) {
+                        System.out.println(puntoVenditaScelto);
+                        System.out.println("cosa vuoi fare ora?");
+                        System.out.println("1-modifica indirizzo");
+
+                        if (puntoVenditaScelto instanceof Rivenditore) {
+                            System.out.println("2-modifica nome rivenditore");
+                        } else if (puntoVenditaScelto instanceof DistributoreAutomatico) {
+                            System.out.println("2-modifica stato distributore");
+                        }
+
+                        System.out.println("0-indietro");
+
+                        risp = Integer.parseInt(scanner.nextLine());
+
+                        switch (risp) {
+                            case 1:
+                                System.out.println("inserisci il nuovo indirizzo:");
+                                String nuovoIndirizzo = scanner.nextLine();
+                                puntoVenditaScelto.setIndirizzo(nuovoIndirizzo);
+                                pvDAO.updatePuntoDiVendita(puntoVenditaScelto);
+                                System.out.println("indirizzo aggiornato con successo");
+                                break;
+
+                            case 2:
+                                if (puntoVenditaScelto instanceof Rivenditore rivenditore) {
+                                    System.out.println("inserisci il nuovo nome del rivenditore:");
+                                    String nuovoNome = scanner.nextLine();
+                                    rivenditore.setNome(nuovoNome);
+                                    pvDAO.updatePuntoDiVendita(rivenditore);
+                                    System.out.println("nome rivenditore aggiornato con successo");
+
+                                } else if (puntoVenditaScelto instanceof DistributoreAutomatico distributore) {
+                                    System.out.println("vuoi impostare il distributore come attivo?");
+                                    System.out.println("1-si \n2-no");
+                                    int stato = Integer.parseInt(scanner.nextLine());
+
+                                    if (stato == 1) {
+                                        distributore.setAttivo(true);
+                                        pvDAO.updatePuntoDiVendita(distributore);
+                                        System.out.println("distributore impostato come attivo");
+                                    } else if (stato == 2) {
+                                        distributore.setAttivo(false);
+                                        pvDAO.updatePuntoDiVendita(distributore);
+                                        System.out.println("distributore impostato come non attivo");
+                                    } else {
+                                        System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+                                    }
+                                } else {
+                                    System.out.println("non c'è nessuna opzione con quello che hai digitato");
+                                }
+                                break;
+
+                            case 0:
+                                whileListaPuntiVendita = false;
+                                break;
+
+                            default:
+                                System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+                                break;
+                        }
+                    }
+
+                } else if (risp == 0) {
+                    whilePuntiVendita = false;
+
+                } else {
+                    System.out.println("!!! SCEGLI UN NUMERO TRA QUELLI ELENCATI !!!");
+                }
+            }
+
+        } else if (risp == 3) {
+            System.out.println("ecco la lista di tutti gli utenti");
+            UserDAO userDAO = new UserDAO(em);
+            List<User> utenti = userDAO.getAllUsers();
+
+            if (utenti.isEmpty()) {
+                System.out.println("Non ci sono utenti.");
+            } else {
+                for (User u : utenti) {
+                    System.out.println("ID: " + u.getId());
+                    System.out.println("Nome: " + u.getNome());
+                    System.out.println("Cognome: " + u.getCognome());
+                    System.out.println("Data di nascita: " + u.getDataDiNascita());
+                    System.out.println("Tipo utente: " + u.getTipoUtente());
+
+                    if (u instanceof Tessera tessera) {
+                        System.out.println("Tessera: SI");
+                        System.out.println("Scadenza tessera: " + tessera.getScadenza());
+                    } else {
+                        System.out.println("Tessera: NO");
+                    }
+
+                    System.out.println("------------------------");
+                }
+            }
+
+        } else if (risp == 0) {
+            ciclo= false;
+
+        } else {
+            System.out.println("!!! INSERISCI UNO DI QUESTI NUMERI !!!");
+        }
+
+        } catch (NumberFormatException e) {
+            System.out.println("!!! NON PUOI INSERIRE ALTRI CARATTERI, SOLO I NUMERI ELENCATI !!!");
+        }catch (DateTimeParseException e) {
+            System.out.println("!!! FORMATO DATA NON VALIDO. USA YYYY-MM-DD !!!");
+        }
+
+
+    }
+    };
 
 }
