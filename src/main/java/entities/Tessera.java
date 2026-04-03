@@ -12,13 +12,16 @@ public class Tessera extends User {
     @Column(nullable = false)
     private LocalDate scadenza;
 
+    @OneToOne
+    @JoinColumn(name = "id_utente")
+    private User user;
+
     public Tessera() {  }
 
     public Tessera(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
         super( nome, cognome, dataDiNascita, tipoUtente);
-        this.scadenza = LocalDate.now().plusYears(1) ;
+        this.scadenza = LocalDate.now().plusYears(1);
     }
-
 
 
     public LocalDate getScadenza() {

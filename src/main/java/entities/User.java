@@ -9,18 +9,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "Utente")
 @Inheritance(strategy = InheritanceType.JOINED)
+
 public class User {
-
-    public User() {
-    }
-
-    public User(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.dataDiNascita = dataDiNascita;
-        this.tipoUtente = tipoUtente;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +26,20 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private TipoUtente tipoUtente;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Tessera tessera;
+
+    public User() {    }
+
+    public User(String nome, String cognome, LocalDate dataDiNascita, TipoUtente tipoUtente) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.dataDiNascita = dataDiNascita;
+        this.tipoUtente = tipoUtente;
+    }
+
+
 
     public Long getId() {
         return id;
@@ -69,6 +73,9 @@ public class User {
     public void setTipoUtente(TipoUtente tipoUtente) {
         this.tipoUtente = tipoUtente;
     }
+
+    public Tessera getTessera() { return tessera; }
+    public void setTessera(Tessera tessera) { this.tessera = tessera; }
 
     @Override
     public String toString() {
