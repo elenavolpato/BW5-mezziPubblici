@@ -364,11 +364,31 @@ public class Application {
                 System.out.println("che cosa vuoi fare? \n1-crea mezzo \n2-visualizza mezzi \n0-indietro");
                 risp = Integer.parseInt(scanner.nextLine());
                 if (risp == 1){
+                    System.out.println("Capienza mezzo: ");
+                    int capienza = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Tipo Mezzi: ");
+                    System.out.println("1 - Autobus");
+                    System.out.println("2 - Tram");
+                    int tipoMezzo = scanner.nextInt();
+                    TipoMezzi tipo = TipoMezzi.AUTOBUS;
+                    if(tipoMezzo == 2){
+                        tipo = TipoMezzi.TRAM;
+                    }
+                    scanner.nextLine();
+                    System.out.println("In servizio? s/n");
 
+                    String inServizio = scanner.nextLine();
+                    boolean isAttivo = true;
+                    if(inServizio.equals("n")){
+                        isAttivo = false;
+                    }
 
-                    // per la creazione
+                    Mezzo newMezzo = new Mezzo(capienza,tipo,isAttivo, null, null);
+                    MezzoDAO mezzoDao = new MezzoDAO(em);
+                    mezzoDao.saveMezzo(newMezzo);
 
-                    System.out.println("per creare mezzoooooooooooooooooooooooooooooooo");
+                    System.out.println("Mezzo aggiunto!");
 
 
                 } else if (risp == 2) {
