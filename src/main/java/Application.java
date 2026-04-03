@@ -24,34 +24,45 @@ public class Application {
 
 
     public static void main(String[] args){
-//        try {
-//            DataInitializer initializer = new DataInitializer(em);
-//
-//            System.out.println("Starting database seeding...");
-//            initializer.bootstrapData();
-//            System.out.println("Database is ready!");
-//
-//
-//        } catch (Exception e) {
-//            System.err.println("An error occurred during startup:");
-//            e.printStackTrace();
-//        } finally {
-//            em.close();
-//        }
+        try {
+            DataInitializer initializer = new DataInitializer(em);
+
+            System.out.println("Starting database seeding...");
+            initializer.bootstrapData();
+            System.out.println("Database is ready!");
 
 
-    inizioScanner();
+        } catch (Exception e) {
+            System.err.println("An error occurred during startup:");
+            e.printStackTrace();
+        } finally {
+            String RESET  = "\u001B[0m";
+            String YELLOW = "\u001B[33m";
+            System.out.println(YELLOW+"░  ░  ░░░░░  ░     ░  ░░░░░"+RESET);
+            System.out.println(YELLOW+"░  ░  ░   ░  ░░   ░░  ░    "+RESET);
+            System.out.println(YELLOW+"░░░░  ░   ░  ░  ░  ░  ░░░░ "+RESET);
+            System.out.println(YELLOW+"░  ░  ░   ░  ░     ░  ░    "+RESET);
+            System.out.println(YELLOW+"░  ░  ░░░░░  ░     ░  ░░░░░"+RESET);
+            System.out.println("Sei in Amministratore o un utente?");
+            System.out.println("1 - Amministratore");
+            System.out.println("2 - Utente");
+            String userScelto = scanner.nextLine();
+            if(userScelto.equals("1")){
+                scannerAmministratore();
+            }else if (userScelto.equals("2")){
+                inizioScanner();
+            }
+        }
+
+
+
+    em.close();
     emf.close();
     }
     public static void inizioScanner(){
-        String RESET  = "\u001B[0m";
-        String YELLOW = "\u001B[33m";
 
-        System.out.println(YELLOW+"░  ░  ░░░░░  ░     ░  ░░░░░"+RESET);
-        System.out.println(YELLOW+"░  ░  ░   ░  ░░   ░░  ░    "+RESET);
-        System.out.println(YELLOW+"░░░░  ░   ░  ░  ░  ░  ░░░░ "+RESET);
-        System.out.println(YELLOW+"░  ░  ░   ░  ░     ░  ░    "+RESET);
-        System.out.println(YELLOW+"░  ░  ░░░░░  ░     ░  ░░░░░"+RESET);
+
+
         PuntoDiVenditaDAO puntoDiVenditaDAO = new PuntoDiVenditaDAO(em);
         boolean risp = false;
         List<PuntoDiVendita> list = puntoDiVenditaDAO.getAll();

@@ -24,17 +24,13 @@ public class DataInitializer {
         TesseraDAO tesseraDAO = new TesseraDAO(em);
         UtenzaService service = new UtenzaService(userDAO, tesseraDAO, em);
 
-        EntityTransaction transaction = em.getTransaction();
 
         try {
-            transaction.begin();
-
             // --- 1. USERS ---
             service.registraDatiUtente("Abdellah", "Bazi", LocalDate.now(), TipoUtente.USER);
             service.registraDatiUtente("Elena", "Volpato", LocalDate.now(), TipoUtente.ADMIN);
 
             // --- 2. PUNTI VENDITA ---
-
             DistributoreAutomatico pv1 = new DistributoreAutomatico("via Roma, 2", true);
             DistributoreAutomatico pv2 = new DistributoreAutomatico("Piazza Duomo", true);
             Rivenditore pv3 = new Rivenditore("Corso Buenos Aires 15", "Tabaccheria Rossi");
@@ -76,13 +72,13 @@ public class DataInitializer {
 
             // --- 8. STATO MEZZO ---
             StatoMezzoDAO statoMezzoDAO = new StatoMezzoDAO(em);
-
             StatoMezzo sm1 = new StatoMezzo("Motore spacatto", LocalDate.of(2026, 2, 20), null, m3);
             statoMezzoDAO.saveStatoMezzo(sm1);
-            System.out.println("Data Initialized successfully via Service and DAOs.");
+
+
+            System.out.println("Data Initialized successfully!!!");
 
         } catch (Exception e) {
-            if (transaction.isActive()) transaction.rollback();
             e.printStackTrace();
         }
     }
