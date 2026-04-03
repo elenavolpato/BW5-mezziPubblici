@@ -26,7 +26,6 @@ public class Application {
     public static void main(String[] args){
         try {
             DataInitializer initializer = new DataInitializer(em);
-
             System.out.println("Starting database seeding...");
             initializer.bootstrapData();
             System.out.println("Database is ready!");
